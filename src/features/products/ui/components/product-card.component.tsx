@@ -1,37 +1,52 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { useNavigate } from "react-router";
 
 interface ProductCardProps {
-  name: string;
-  price: number;
-  imageUrl: string;
-  stock: number;
+  id: string,
+  name: string,
+  price: number,
+  imageUrl: string,
+  stock: number
 }
 
-export function ProductCard({
-  name,
-  price,
-  imageUrl,
-  stock,
-}: ProductCardProps) {
+export default function ProductCard({ id, name, price, imageUrl, stock }: ProductCardProps) {
+  const navigate = useNavigate();
+  const inStock = stock > 0;
+
+  const handleClick = () => {
+    navigate(`/products/${id}`)    
+  }
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{price}</CardDescription>
+    <Card className="w-full max-w-sm overflow-hidden">
+      <CardHeader className="p-0">
+        <div className="relative h-48 w-full">
+          <img
+            src={imageUrl}
+            alt={name}
+            className="fill-current object-cover h-full w-full"
+          />
+          <Badge className="absolute top-2 left-2" variant={inStock ? "secondary" : "secondary"}> 
+            {inStock ? "En stock" : "Agotado"}
+          </Badge>
+        </div>
       </CardHeader>
-      <CardContent>
-        <p>{stock}</p>
+      <CardContent className="p-4">
+        <div className="flex justify-between items-start">
+          <CardTitle className="text-xl font-bold truncate">
+            {name}
+          </CardTitle>
+        </div>
+        <p className="text-lg">${ price.toFixed(2)}</p>
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
+      <CardFooter className="p-4 pt-0">
+        <Button onClick={handleClick} className="w-full" disabled={!inStock}>
+          {inStock ? "Comprar" : "Fuera de stock"}
+        </Button>
       </CardFooter>
     </Card>
-  );
+  )
 }
+

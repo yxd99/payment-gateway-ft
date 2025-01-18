@@ -1,11 +1,13 @@
-import React from 'react'
-import { ProductsPage } from './features/products/ui/pages/products.page'
+import React from 'react';
+import { ProductsPage } from './features/products/ui/pages/products.page';
+import { BrowserRouter } from 'react-router';
 
 const App: React.FC = () => {
   return (
-    <ProductsPage />
-  )
-}
+    <BrowserRouter>
+      <ProductsPage />
+    </BrowserRouter>
+  );
+};
 
-export default App
-
+export default App;
