@@ -1,28 +1,130 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import { resolve } from 'node:path';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+const { JAVASCRIPT_FILES } = require('@vercel/style-guide/eslint/constants');
 
+const project = resolve(__dirname, 'tsconfig.json');
+
+/** @type {import('eslint').Linter.Config} */
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
+    root: true,
+    extends: [
+      'prettier',
+      'plugin:tailwindcss/recommended',
+      require.resolve('@vercel/style-guide/eslint/browser'),
+      require.resolve('@vercel/style-guide/eslint/node'),
+      require.resolve('@vercel/style-guide/eslint/react'),
+      require.resolve('@vercel/style-guide/eslint/typescript'),
+    ],
+    parserOptions: { project },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      prettier: 'prettier',
+    },
+    settings: {
+      'import/resolver': { typescript: { project } },
+      /**
+       * enable MUI Joy components to be checked
+       * @see {@link https://github.com/jsx-eslint/eslint-plugin-jsx-a11y?tab=readme-ov-file#configurations}
+       */
+      'jsx-a11y': {
+        polymorphicPropName: 'component',
+        components: {
+          Button: 'button',
+          Image: 'img',
+          Input: 'input',
+          Link: 'a',
+          NextImage: 'img',
+          NextLink: 'a',
+          Textarea: 'textarea',
+        },
+      },
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
+      'prettier/prettier': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-confusing-void-expression': [
+        'error',
+        { ignoreArrowShorthand: true },
       ],
+      '@typescript-eslint/no-shadow': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        { checksVoidReturn: { attributes: false } },
+      ],
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowAny: false,
+          allowBoolean: false,
+          allowNullish: false,
+          allowRegExp: false,
+          allowNever: false,
+        },
+      ],
+      'react/function-component-definition': [
+        'warn',
+        {
+          namedComponents: 'function-declaration',
+          unnamedComponents: 'arrow-function',
+        },
+      ],
+      'react/jsx-sort-props': [
+        'warn',
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          multiline: 'last',
+          reservedFirst: true,
+        },
+      ],
+      // sort import statements
+      'import/order': [
+        'warn',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+          ],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc' },
+        },
+      ],
+      // sort named imports within an import statement
+      'sort-imports': ['warn', { ignoreDeclarationSort: true }],
     },
-  },
-)
+    overrides: [
+      /**
+       * JS files are using @babel/eslint-parser, so typed linting doesn't work there.
+       * @see {@link https://github.com/vercel/style-guide/blob/canary/eslint/_base.js}
+       * @see {@link https://typescript-eslint.io/linting/typed-linting#how-can-i-disable-type-aware-linting-for-a-subset-of-files}
+       */
+      {
+        files: JAVASCRIPT_FILES,
+        extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      },
+      {
+        files: [
+          '*.config.{mjs,ts}',
+          'src/components/emails/*.tsx',
+        ],
+        rules: {
+          'import/no-default-export': 'off',
+          'import/prefer-default-export': ['error', { target: 'any' }],
+        },
+      },
+      {
+        files: ['**/*.d.ts'],
+        rules: { 'import/no-default-export': 'off' },
+      },
+    ],
+  }
+);
