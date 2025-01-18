@@ -18,4 +18,15 @@ export class ProductHttpRepository implements ProductRepository {
         )
     );
   }
+
+  async getProductById(id: string): Promise<Product> {
+    const response = await httpClient.get<Product>(`${this.baseUrl}/${id}`);
+    return new Product(
+      response.id,
+      response.name,
+      response.price,
+      response.imageUrl,
+      response.stock
+    );
+  }
 }

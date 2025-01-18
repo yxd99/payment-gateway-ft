@@ -2,6 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router";
+import { formatCurrency } from "@/lib/utils";
 
 interface ProductCardProps {
   id: string,
@@ -39,7 +40,7 @@ export default function ProductCard({ id, name, price, imageUrl, stock }: Produc
             {name}
           </CardTitle>
         </div>
-        <p className="text-lg">${ price.toFixed(2)}</p>
+        <p className="text-lg">{formatCurrency(price)}</p> 
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button onClick={handleClick} className="w-full" disabled={!inStock}>
