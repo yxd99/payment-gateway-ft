@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
 
+import productSelectedReducer from '@features/products/ui/redux/product-selected-slice'
+
 export const store = configureStore({
   reducer: {
+    productSelected: productSelectedReducer,
   },
 })
 

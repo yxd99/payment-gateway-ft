@@ -20,12 +20,14 @@ class AxiosHttpClient implements HttpClient {
     )
   }
 
-  get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    return this.client.get(url, config)
+  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    const { data } = await this.client.get(url, config)
+    return data;
   }
 
-  post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
-    return this.client.post(url, data, config)
+  async post<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<T> {
+    const { data: response } = await this.client.post(url, data, config)
+    return response;
   }
 }
 
