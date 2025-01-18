@@ -44,7 +44,7 @@ export default function ProductCard({ id, name, price, imageUrl, stock }: Produc
       </CardContent>
       <CardFooter className="p-4 pt-0">
         <Button onClick={handleClick} className="w-full" disabled={!inStock}>
-          {inStock ? "Comprar" : "Fuera de stock"}
+          {inStock ? "Ver" : "Fuera de stock"}
         </Button>
       </CardFooter>
     </Card>

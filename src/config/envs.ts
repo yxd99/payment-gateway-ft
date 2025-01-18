@@ -5,8 +5,6 @@ const envVarsSchema = joi.object({
   VITE_API_URL: joi.string().uri().required(),
 }).unknown().required()
 
-console.log(import.meta.env)
-
 const { error, value: envVars } = envVarsSchema.validate(import.meta.env)
 
 if (error) {

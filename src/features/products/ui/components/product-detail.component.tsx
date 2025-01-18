@@ -1,44 +1,44 @@
-import { NavLink, useParams } from 'react-router';
-import { useProductById } from '../hooks/use-product';
+import { useNavigate } from 'react-router';
+import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
-import { MoveLeft } from 'lucide-react';
+import { useAppDispatch } from '@store/index';
+import { setProductSelected } from '@features/products/ui/redux/product-selected-slice';
 
-export function ProductDetail() {
-  const { id } = useParams();
+interface ProductDetailProps {
+  id: string;
+  imageUrl: string;
+  name: string;
+  price: number;
+}
 
-  const { product, error, loading } = useProductById(id!);
+export function ProductDetail({ id, imageUrl, name, price }: ProductDetailProps) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  const handleBuy = () => {
+    dispatch(setProductSelected({ id, name, price, imageUrl }));
+    navigate('/checkout');
+  };
 
   return (
-    <div className='flex flex-col'>
-      <div className='flex items-center px-2 border-b-slate-600 border-b mb-4'>
-        <NavLink to='/' className='text-2xl font-bold'>
-          <MoveLeft />
-        </NavLink>
-        <h1 className='text-3xl font-bold text-center p-5 w-full'>
-          Product Detail
-        </h1>
+    <div className='flex flex-col gap-2'>
+      <div>
+        <img
+          src={imageUrl}
+          alt={name}
+          className='size-full max-h-[40rem] object-cover'
+        />
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p className='error'>{error}</p>}
-      {product && (
-        <>
-          <div>
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className='size-full max-h-[40rem] object-cover'
-            />
-          </div>
-          <div>
-            <h2 className='text-xl font-bold'>{product.name}</h2>
-            <p className='text-lg'>{formatCurrency(product.price)}</p>
-          </div>
-        </>
-      )}
+      <div>
+        <h2 className='text-xl font-bold'>{name}</h2>
+        <p className='text-lg'>{formatCurrency(price)}</p>
+        <Button
+          className='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
+          onClick={handleBuy}
+        >
+          Comprar
+        </Button>
+      </div>
     </div>
   );
 }

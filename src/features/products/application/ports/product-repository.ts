@@ -1,6 +1,7 @@
-import { Product } from "../../core/product";
+import { Product } from '@features/products/core/product';
+import { Pagination } from './pagination';
 
 export interface ProductRepository {
-  getProducts(size: number, page: number): Promise<Product[]>;
+  getProducts(pagination: Pagination): Promise<Product[]>;
   getProductById(id: string): Promise<Product>;
 }

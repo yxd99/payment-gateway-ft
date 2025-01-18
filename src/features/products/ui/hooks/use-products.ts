@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Product } from "../../core/product";
-import { GetProducts } from "../../application/use-cases/get-products";
-import { ProductHttpRepository } from "../../infrastructure/product-http-repository";
+import { Product } from "@features/products/core/product";
+import { GetProducts } from "@features/products/application/use-cases/get-products";
+import { ProductHttpRepository } from "@features/products/infrastructure/product-http-repository";
+import { Pagination } from "@features/products/application/ports/pagination";
 
-export const useProducts = (size: number, page: number) => {
+export const useProducts = ({ size, page }: Pagination) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,7 +15,7 @@ export const useProducts = (size: number, page: number) => {
       try {
         const repository = new ProductHttpRepository();
         const useCase = new GetProducts(repository);
-        const data = await useCase.execute(size, page);
+        const data = await useCase.execute({ size, page });
         setProducts(data);
       } catch (err: unknown) {
         const error = err as Error;

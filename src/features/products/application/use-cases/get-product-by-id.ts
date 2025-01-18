@@ -1,5 +1,5 @@
-import { Product } from "../../core/product";
-import { ProductRepository } from "../ports/product-repository";
+import { Product } from "@features/products/core/product";
+import { ProductRepository } from "@features/products/application/ports/product-repository";
 
 export class GetProductById {
   constructor(private readonly repository: ProductRepository) {}
