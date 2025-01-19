@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
 import { useAppDispatch } from '@store/index';
 import { setProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
+import { setStageOfPayment } from '@/features/checkout/infrastructure/redux/checkout-slice';
 
 interface ProductDetailProps {
   id: string;
@@ -26,6 +27,8 @@ export function ProductDetail({
     dispatch(
       setProductSelected({ id, name, price, imageUrl, stock, quantity: 1 })
     );
+    dispatch(setStageOfPayment(1));
+    
     navigate('/checkout');
   };
 

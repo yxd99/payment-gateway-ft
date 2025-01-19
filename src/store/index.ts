@@ -12,7 +12,7 @@ import paymentReducer, { paymentMiddleware } from '@/features/user/infrastructur
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['payments', 'userApi'],
+  blacklist: ['payments', 'userApi', 'checkoutApi'],
 };
 
 const rootReducer = combineReducers({

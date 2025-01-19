@@ -2,20 +2,22 @@ import { Button } from '@/components/ui/button';
 import { DeliveryInfoForm } from '../components/delivery-info-form.component';
 import { PaymentInfoForm } from '../components/payment-info-form.component';
 import { ProductInfo } from '../components/product-info.component';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { useNavigate } from 'react-router';
 import {
   useGetAcceptanceTokensQuery,
   useSubmitPaymentMutation,
 } from '../../infrastructure/redux/api-service';
 import { toast } from 'sonner';
-import { clearStore } from '../../infrastructure/redux/checkout-slice';
+import { clearStore, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
+import { clearProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
 
 export default function SummaryPage() {
   const navigate = useNavigate();
   const productInfo = useAppSelector((state) => state.productSelected);
   const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
   const deliveryInfo = useAppSelector((state) => state.checkout.deliveryInfo);
+  const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.user); 
   const [submitPayment, { isLoading: sendingPayment }] =
     useSubmitPaymentMutation();
@@ -47,7 +49,10 @@ export default function SummaryPage() {
 
     try {
       await submitPayment(payload).unwrap();
-      clearStore();
+      dispatch(clearStore());
+      dispatch(clearProductSelected())
+      dispatch(setStageOfPayment(0));
+      toast.success('Payment sent!');
       navigate(`/products/${productInfo.id}`);
     } catch (error) {
       console.log({ error });
@@ -73,7 +78,7 @@ export default function SummaryPage() {
         When you click on the button, you are accepting the terms and
         conditions.
       </p>
-      <Button onClick={() => navigate(-1)} variant='secondary'>
+      <Button onClick={() => navigate(-1)} disabled={sendingPayment} variant='secondary'>
         Back
       </Button>
       <Button
@@ -81,7 +86,7 @@ export default function SummaryPage() {
         disabled={sendingPayment}
         className='w-full'
       >
-        {sendingPayment ? 'Sending...' : 'Pay'}
+        {sendingPayment ? 'Paying...' : 'Pay'}
       </Button>
     </div>
   );

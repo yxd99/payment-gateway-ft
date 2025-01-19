@@ -1,6 +1,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -8,27 +9,41 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { DollarSign, ShoppingBag, User } from "lucide-react";
+import { DollarSign, LogOut, ShoppingBag } from "lucide-react";
+import { Button } from "./ui/button";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { logout } from "@/features/user/infrastructure/redux/user-slice";
 
-const items = [
-  {
-    title: 'Products',
-    url: '/',
-    icon: ShoppingBag,
-  },
-  {
-    title: 'My Payments',
-    url: '/user/payments',
-    icon: DollarSign,
-  },
-  {
-    title: 'User',
-    url: '/user',
-    icon: User,
-  },
-];
 
 export function AppSidebar() {
+  const items = [
+    {
+      title: 'Products',
+      url: '/',
+      icon: ShoppingBag,
+    },
+    {
+      title: 'My Payments',
+      url: '/user/payments',
+      icon: DollarSign,
+    }
+  ];
+
+  const dispatch = useAppDispatch();
+  const stageOfPayment = useAppSelector((state) => state.checkout.stageOfPayment);
+  console.log({ stageOfPayment });
+  if (stageOfPayment !== 0) {
+    items.push({
+      title: 'Checkout',
+      url: '/checkout',
+      icon: ShoppingBag,
+    })
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -50,6 +65,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Button onClick={handleLogout}>
+                <LogOut /> Logout
+              </Button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -16,12 +16,12 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<User>) {
       state.email = action.payload.email;
     },
-    clearStore(state) {
+    logout(state) {
       state.email = initialState.email;
     },
   },
 });
 
-export const { setUser, clearStore } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;
 export const userReducer = userSlice.reducer;
 export default userReducer;

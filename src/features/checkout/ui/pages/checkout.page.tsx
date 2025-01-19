@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDeliveryInfo, setPaymentInfo } from '../../infrastructure/redux/checkout-slice';
+import { setDeliveryInfo, setPaymentInfo, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
 import { toast } from 'sonner';
 import { useAppSelector } from '@/store';
 
@@ -30,8 +30,7 @@ export default function CheckoutPage() {
     if (paymentInfo && deliveryInfo) {
       dispatch(setPaymentInfo(paymentInfo));
       dispatch(setDeliveryInfo(deliveryInfo));
-
-      navigate('/summary');
+      dispatch(setStageOfPayment(2));
     } else {
       console.log({ paymentInfo, deliveryInfo });
       toast.error('Please complete all required fields!');
