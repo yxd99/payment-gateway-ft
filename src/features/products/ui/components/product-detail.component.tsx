@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
 import { useAppDispatch } from '@store/index';
-import { setProductSelected } from '@features/products/ui/redux/product-selected-slice';
+import { setProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
 
 interface ProductDetailProps {
   id: string;

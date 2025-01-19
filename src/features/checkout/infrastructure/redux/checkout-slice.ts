@@ -61,10 +61,14 @@ const paymentSlice = createSlice({
     setDeliveryInfo(state, action: PayloadAction<DeliveryInfo>) {
       state.deliveryInfo = action.payload;
     },
+    clearStore(state) {
+      state.paymentInfo = initialState.paymentInfo;
+      state.deliveryInfo = initialState.deliveryInfo;
+    },
   },
 });
 
-export const { setTokens, resetTokens, setPaymentInfo, setDeliveryInfo } = paymentSlice.actions;
+export const { setTokens, resetTokens, setPaymentInfo, setDeliveryInfo, clearStore } = paymentSlice.actions;
 export const checkoutReducer = {
   [paymentSlice.name]: paymentSlice.reducer,
   [checkoutApiService.reducerPath]: checkoutApiService.reducer,
