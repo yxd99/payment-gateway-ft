@@ -21,13 +21,13 @@ export default function ProductCard({ id, name, price, imageUrl, stock }: Produc
   }
 
   return (
-    <Card className="w-full overflow-hidden">
+    <Card className="size-full overflow-hidden">
       <CardHeader className="p-0">
-        <div className="relative h-48 w-full">
+        <div className="relative h-64 w-full border-gray-200 border-b">
           <img
             src={imageUrl}
             alt={name}
-            className="fill-current object-cover h-full w-full"
+            className="fill-current object-cove size-full"
           />
           <Badge className="absolute top-2 left-2" variant={inStock ? "secondary" : "secondary"}> 
             {inStock ? "En stock" : "Agotado"}
