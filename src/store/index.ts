@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 
-import productSelectedReducer from '@features/products/ui/redux/product-selected-slice';
+import productSelectedReducer from '@/features/products/infrastructure/redux/product-selected-slice';
 import { checkoutMiddleware, checkoutReducer } from '@/features/checkout/infrastructure/redux/checkout-slice';
 import { config } from '@/config/envs';
 

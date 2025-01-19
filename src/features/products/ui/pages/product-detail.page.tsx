@@ -13,7 +13,7 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <div className='flex flex-col p-5'>
+    <div className='flex flex-col p-5 w-full'>
       <div className='flex items-center px-2 border-b-slate-600 border-b mb-4'>
         <NavLink to='/' className='text-2xl font-bold'>
           <MoveLeft />

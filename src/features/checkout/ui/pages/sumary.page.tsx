@@ -9,6 +9,7 @@ import {
   useSubmitPaymentMutation,
 } from '../../infrastructure/redux/api-service';
 import { toast } from 'sonner';
+import { clearStore } from '../../infrastructure/redux/checkout-slice';
 
 export default function SummaryPage() {
   const navigate = useNavigate();
@@ -45,10 +46,10 @@ export default function SummaryPage() {
 
     try {
       await submitPayment(payload).unwrap();
+      clearStore();
       navigate(`/products/${productInfo.id}`);
     } catch (error) {
       console.log({ error });
-      
       toast.error(`Something went wrong! ${error}`);
     }
   };
