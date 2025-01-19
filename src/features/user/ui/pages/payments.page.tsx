@@ -39,7 +39,7 @@ export default function PaymentsPage() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className='max-w-[10px]'>ID</TableHead>
+            <TableHead>ID</TableHead>
             <TableHead>Amount</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Reference</TableHead>
@@ -54,7 +54,7 @@ export default function PaymentsPage() {
                 {payment.id}
               </TableCell>
               <TableCell>{formatCurrency(Number(payment.amount))}</TableCell>
-              <TableCell>{payment.productQuantity}</TableCell>
+              <TableCell className='text-center'>{payment.productQuantity}</TableCell>
               <TableCell>{payment.reference}</TableCell>
               <TableCell>{payment.status}</TableCell>
               <TableCell>
