@@ -34,6 +34,7 @@ describe('ProductDetail', () => {
     name: 'Test Product',
     price: 100,
     imageUrl: 'http://example.com/image.jpg',
+    stock: 10,
   };
 
   test('should render the component correctly', () => {
@@ -46,7 +47,7 @@ describe('ProductDetail', () => {
   test('should dispatch the action and navigate to checkout when clicking "Buy"', () => {
     render(<ProductDetail {...product} />);
 
-    const button = screen.getByRole('button', { name: /Comprar/i });
+    const button = screen.getByRole('button', { name: /Buy/i });
     
     fireEvent.click(button);
     
@@ -55,6 +56,8 @@ describe('ProductDetail', () => {
       name: product.name,
       price: product.price,
       imageUrl: product.imageUrl,
+      stock: product.stock,
+      quantity: 1,
     }));
     
     expect(mockNavigate).toHaveBeenCalledWith('/checkout');

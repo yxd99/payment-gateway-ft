@@ -9,14 +9,23 @@ interface ProductDetailProps {
   imageUrl: string;
   name: string;
   price: number;
+  stock: number;
 }
 
-export function ProductDetail({ id, imageUrl, name, price }: ProductDetailProps) {
+export function ProductDetail({
+  id,
+  imageUrl,
+  name,
+  price,
+  stock,
+}: ProductDetailProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleBuy = () => {
-    dispatch(setProductSelected({ id, name, price, imageUrl }));
+    dispatch(
+      setProductSelected({ id, name, price, imageUrl, stock, quantity: 1 })
+    );
     navigate('/checkout');
   };
 
@@ -31,13 +40,14 @@ export function ProductDetail({ id, imageUrl, name, price }: ProductDetailProps)
       </div>
       <div>
         <h2 className='text-xl font-bold'>{name}</h2>
-        <p className='text-lg'>{formatCurrency(price)}</p>
-        <Button
-          className='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-          onClick={handleBuy}
-        >
-          Comprar
-        </Button>
+        <div className='flex gap-2'>
+          <p className='text-lg'>{formatCurrency(price)} per unit</p>
+          {'-'}
+          <p className='text-lg'>{stock} in stock</p>
+        </div>
+          <Button className='w-full mt-4 px-4 py-2' onClick={handleBuy}>
+            Buy
+          </Button>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ export interface ProductSelected {
   name: string;
   price: number;
   imageUrl: string;
+  quantity: number;
+  stock: number;
 }
 
 const initialState: ProductSelected = {
@@ -12,6 +14,8 @@ const initialState: ProductSelected = {
   name: '',
   price: 0,
   imageUrl: '',
+  quantity: 0,
+  stock: 0,
 };
 
 const productSelectedSlice = createSlice({
@@ -22,9 +26,15 @@ const productSelectedSlice = createSlice({
       return action.payload;
     },
     clearProductSelected: () => initialState,
+    setProductQuantity: (state, action: PayloadAction<number>) => {
+      if (action.payload < 1 || action.payload > state.stock) {
+        return;
+      }
+      state.quantity = action.payload;
+    },
   },
 });
 
-export const { setProductSelected, clearProductSelected } = productSelectedSlice.actions;
+export const { setProductSelected, clearProductSelected, setProductQuantity } = productSelectedSlice.actions;
 
 export default productSelectedSlice.reducer;
