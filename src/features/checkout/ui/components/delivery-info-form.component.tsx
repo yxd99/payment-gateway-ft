@@ -15,8 +15,10 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { deliveryInfoSchema } from '../schemas/delivery-info.schema';
 import { forwardRef, useImperativeHandle } from 'react';
+import { cn } from '@/lib/utils';
 
 type DeliveryInfoFormProps = {
+  className?: string;
   canEdit?: boolean;
   initialValues?: {
     address: string;
@@ -27,7 +29,7 @@ type DeliveryInfoFormProps = {
 };
 
 export const DeliveryInfoForm = forwardRef(
-  ({ canEdit = true, initialValues }: DeliveryInfoFormProps, ref) => {
+  ({ canEdit = true, initialValues, className = '' }: DeliveryInfoFormProps, ref) => {
     const form = useForm<z.infer<typeof deliveryInfoSchema>>({
       resolver: zodResolver(deliveryInfoSchema),
       defaultValues: {
@@ -51,7 +53,7 @@ export const DeliveryInfoForm = forwardRef(
 
     return (
       <Form {...form}>
-        <Card>
+        <Card className={cn(className)}>
           <CardHeader className='flex justify-between'>
             <h1 className='text-2xl font-bold'>Delivery Info</h1>
           </CardHeader>
@@ -98,7 +100,7 @@ export const DeliveryInfoForm = forwardRef(
                   </FormItem>
                 )}
               />
-              <div className='flex gap-2'>
+              <div className='grid grid-cols-2 gap-2'>
                 <FormField
                   control={form.control}
                   name='city'

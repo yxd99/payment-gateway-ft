@@ -22,28 +22,46 @@ export function ProductInfo({ canEdit = true }: ProductInfoProps) {
   };
 
   return (
-    <Card>
+    <Card className=''>
       <CardHeader className='flex justify-between'>
         <h1 className='text-2xl font-bold'>Product Info</h1>
       </CardHeader>
       <CardContent>
-        <div className='flex gap-2'>
-          <div className='w-1/2'>
+        <div className='grid grid-cols-1 gap-2'>
+          <div className='w-full h-[35rem]'>
             <img
               src={product.imageUrl}
               alt={product.name}
-              className='object-cover rounded-lg'
+              className='object-cover rounded-lg size-full'
             />
           </div>
-          <div className='flex gap-2 justify-center flex-col'>
+          <div className='flex gap-2 justify-center flex-col w-full'>
             <h2 className='text-xl font-bold'>{product.name}</h2>
-            <p className='text-sm'>{formatCurrency(product.price)}</p>
-            <div className='w-full flex'>
-              {canEdit && <Button className='rounded-r-none' onClick={handleDecrement}>-</Button>}
-              <Input className='w-full rounded-none text-center' type='number' placeholder='Qty' value={product.quantity} />
-              {canEdit && <Button className='rounded-l-none' onClick={handleIncrement}>+</Button>}
+            <p className='text-sm'>Price: {formatCurrency(product.price)}</p>
+            <div className='flex justify-between items-center gap-2'>
+              <p className='text-sm'>Quantity:</p>
+              <div className='w-full flex'>
+                {canEdit && (
+                  <Button className='rounded-r-none' onClick={handleDecrement}>
+                    -
+                  </Button>
+                )}
+                <Input
+                  className='w-full rounded-none text-center'
+                  type='number'
+                  placeholder='Qty'
+                  value={product.quantity}
+                />
+                {canEdit && (
+                  <Button className='rounded-l-none' onClick={handleIncrement}>
+                    +
+                  </Button>
+                )}
+              </div>
             </div>
-            <p className='text-sm text-end'>Total: {formatCurrency(product.price * product.quantity)}</p>
+            <p className='text-sm text-end'>
+              Total: {formatCurrency(product.price * product.quantity)}
+            </p>
           </div>
         </div>
       </CardContent>

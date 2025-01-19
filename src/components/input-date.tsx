@@ -8,7 +8,7 @@ interface DateInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const DateInput = forwardRef<HTMLInputElement, DateInputProps & ControllerRenderProps>(
     ({ readOnly = false, ...field }, ref) => {
-        const [value, setValue] = useState('');
+        const [value, setValue] = useState(field.value);
 
         const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             const input = e.target.value.replace(/\D/g, '');

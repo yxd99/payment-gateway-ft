@@ -11,14 +11,17 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDeliveryInfo, setPaymentInfo } from '../../redux/checkout-slice';
+import { setDeliveryInfo, setPaymentInfo } from '../../infrastructure/redux/checkout-slice';
 import { toast } from 'sonner';
+import { useAppSelector } from '@/store';
 
 export function CheckoutPage() {
   const navigate = useNavigate();
   const paymentFormRef = useRef<any>();
   const deliveryFormRef = useRef<any>();
   const dispatch = useDispatch();
+  const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
+  const deliveryInfo = useAppSelector((state) => state.checkout.deliveryInfo);
 
   const handleGoPay = async () => {
     const paymentInfo = await paymentFormRef.current?.validate();
@@ -44,15 +47,20 @@ export function CheckoutPage() {
           </h1>
         </CardHeader>
         <CardContent>
-          <ProductInfo />
-          <PaymentInfoForm ref={paymentFormRef} />
-          <DeliveryInfoForm ref={deliveryFormRef} />
-          <p className='text-sm text-slate-500 p-2'>
-            When you click on the button, you are accepting the terms and
-            conditions.
-          </p>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+            <ProductInfo />
+            <PaymentInfoForm initialValues={paymentInfo} ref={paymentFormRef} />
+            <DeliveryInfoForm
+              initialValues={deliveryInfo}
+              className='col-span-2'
+              ref={deliveryFormRef}
+            />
+          </div>
         </CardContent>
-        <CardFooter className='flex justify-end'>
+        <CardFooter className='flex justify-end gap-2'>
+          <Button onClick={() => navigate('/')} variant='secondary'>
+            Cancel
+          </Button>
           <Button onClick={handleGoPay}>Go Pay</Button>
         </CardFooter>
       </Card>
