@@ -50,6 +50,7 @@ export function ProductInfo({ canEdit = true }: ProductInfoProps) {
                   className='w-full rounded-none text-center'
                   type='number'
                   placeholder='Qty'
+                  readOnly
                   value={product.quantity}
                 />
                 {canEdit && (

@@ -90,7 +90,7 @@ export const PaymentInfoForm = forwardRef(
                         onFocus={handleFocus}
                         readOnly={!canEdit}
                         placeholder='4242 4242 4242 4242'
-                        maxLength={19}
+                        maxLength={16}
                         {...field}
                       />
                     </FormControl>

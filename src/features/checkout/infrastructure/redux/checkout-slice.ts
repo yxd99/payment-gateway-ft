@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { checkoutApiService } from './api-service';
 
 interface PaymentInfo {
   cardNumber: string;
@@ -64,4 +65,9 @@ const paymentSlice = createSlice({
 });
 
 export const { setTokens, resetTokens, setPaymentInfo, setDeliveryInfo } = paymentSlice.actions;
-export default paymentSlice.reducer;
+export const checkoutReducer = {
+  [paymentSlice.name]: paymentSlice.reducer,
+  [checkoutApiService.reducerPath]: checkoutApiService.reducer,
+}
+export const checkoutMiddleware = checkoutApiService.middleware;
+export default checkoutReducer;

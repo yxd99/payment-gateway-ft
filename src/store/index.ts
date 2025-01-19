@@ -4,7 +4,7 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 
 import productSelectedReducer from '@features/products/ui/redux/product-selected-slice';
-import checkoutReducer from '@/features/checkout/infrastructure/redux/checkout-slice';
+import { checkoutMiddleware, checkoutReducer } from '@/features/checkout/infrastructure/redux/checkout-slice';
 import { config } from '@/config/envs';
 
 const persistConfig = {
@@ -14,7 +14,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   productSelected: productSelectedReducer,
-  checkout: checkoutReducer,
+  checkout: checkoutReducer.payment,
+  checkoutApi: checkoutReducer.checkoutApi,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -27,7 +28,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
       }
-    }),
+    }).concat(checkoutMiddleware),
 });
 
 export const persistor = persistStore(store);
