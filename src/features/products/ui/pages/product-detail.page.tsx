@@ -3,7 +3,7 @@ import { ProductDetail } from '@features/products/ui/components/product-detail.c
 import { useProductById } from '@features/products/ui/hooks/use-product-by-id';
 import { MoveLeft } from 'lucide-react';
 
-export function ProductDetailPage() {
+export default function ProductDetailPage() {
   const { id } = useParams();
 
   const { product, error, loading } = useProductById(id!);

@@ -2,7 +2,7 @@ import { useProducts } from '@features/products/ui/hooks/use-products';
 import ProductCard from '@features/products/ui/components/product-card.component';
 import { useEffect, useState } from 'react';
 
-export function ProductsPage() {
+export default function ProductsPage() {
   const [page, setPage] = useState(1);
   const { products, loading, error } = useProducts({ size: 2, page });
 
