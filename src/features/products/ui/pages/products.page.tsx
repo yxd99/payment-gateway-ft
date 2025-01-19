@@ -1,10 +1,13 @@
 import { useProducts } from '@features/products/ui/hooks/use-products';
 import ProductCard from '@features/products/ui/components/product-card.component';
 import { useEffect, useState } from 'react';
+import { useSidebar } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
-  const { products, loading, error } = useProducts({ size: 2, page });
+  const { products, loading, error } = useProducts({ size: 10, page });
+  const { open } = useSidebar();
 
   useEffect(() => {
     const onScroll = () => {
@@ -29,7 +32,11 @@ export default function ProductsPage() {
       <h1 className='text-3xl font-bold text-center p-5 border-b-slate-600 border-b'>
         Products
       </h1>
-      <div className='grid grid-cols-1 gap-4 m-5 md:grid-cols-3 lg:grid-cols-4'>
+      <div className={
+        cn('grid grid-cols-1 gap-4 m-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4', {
+          'md:grid-cols-2 lg:grid-cols-3': open,
+        })
+      }>
         {products.map((product) => (
           <ProductCard
             key={product.id}

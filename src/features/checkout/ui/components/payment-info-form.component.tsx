@@ -27,7 +27,6 @@ interface PaymentInfoFormProps {
     expirationDate: string;
     cardHolder: string;
     installments: number;
-    email: string;
   };
 }
 
@@ -41,7 +40,6 @@ export const PaymentInfoForm = forwardRef(
         expirationDate: initialValues?.expirationDate || '',
         cardHolder: initialValues?.cardHolder || '',
         installments: initialValues?.installments || 1,
-        email: initialValues?.email || '',
       },
     });
     const [focused, setFocused] = useState<Focused | undefined>(undefined);
@@ -183,27 +181,6 @@ export const PaymentInfoForm = forwardRef(
                     </FormControl>
                     <FormDescription>
                       This is the name of the card holder.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='email'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        readOnly={!canEdit}
-                        placeholder='john.doe@example.com'
-                        type='email'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      This is the email of the customer.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

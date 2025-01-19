@@ -7,7 +7,6 @@ interface PaymentInfo {
   expirationDate: string;
   cardHolder: string;
   installments: number;
-  email: string;
 }
 
 interface DeliveryInfo {
@@ -17,23 +16,21 @@ interface DeliveryInfo {
   phone: string;
 }
 
+type StageOfPayment = 0 | 1 | 2;
+
 interface PaymentState {
-  acceptanceToken: string;
-  personalAuthToken: string;
   paymentInfo: PaymentInfo;
   deliveryInfo: DeliveryInfo;
+  stageOfPayment: StageOfPayment;
 }
 
 const initialState: PaymentState = {
-  acceptanceToken: '',
-  personalAuthToken: '',
   paymentInfo: {
     cardNumber: '',
     cvc: '',
     expirationDate: '',
     cardHolder: '',
     installments: 1,
-    email: '',
   },
   deliveryInfo: {
     address: '',
@@ -41,20 +38,13 @@ const initialState: PaymentState = {
     state: '',
     phone: '',
   },
+  stageOfPayment: 0,
 };
 
 const paymentSlice = createSlice({
   name: 'payment',
   initialState,
   reducers: {
-    setTokens(state, action: PayloadAction<PaymentState>) {
-      state.acceptanceToken = action.payload.acceptanceToken;
-      state.personalAuthToken = action.payload.personalAuthToken;
-    },
-    resetTokens(state) {
-      state.acceptanceToken = '';
-      state.personalAuthToken = '';
-    },
     setPaymentInfo(state, action: PayloadAction<PaymentInfo>) {
       state.paymentInfo = action.payload;
     },
@@ -65,10 +55,14 @@ const paymentSlice = createSlice({
       state.paymentInfo = initialState.paymentInfo;
       state.deliveryInfo = initialState.deliveryInfo;
     },
+    setStageOfPayment(state, action: PayloadAction<StageOfPayment>) {
+      console.log({ action });
+      state.stageOfPayment = action.payload;
+    },
   },
 });
 
-export const { setTokens, resetTokens, setPaymentInfo, setDeliveryInfo, clearStore } = paymentSlice.actions;
+export const { setPaymentInfo, setDeliveryInfo, clearStore, setStageOfPayment } = paymentSlice.actions;
 export const checkoutReducer = {
   [paymentSlice.name]: paymentSlice.reducer,
   [checkoutApiService.reducerPath]: checkoutApiService.reducer,

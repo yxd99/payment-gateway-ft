@@ -5,27 +5,45 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { DollarSign, ShoppingBag } from "lucide-react";
+import { DollarSign, LogOut, ShoppingBag } from "lucide-react";
+import { Button } from "./ui/button";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { logout } from "@/features/user/infrastructure/redux/user-slice";
 
-const items = [
-  {
-    name: 'Products',
-    href: '/',
-    icon: ShoppingBag,
-  },
-  {
-    name: 'My Payments',
-    href: '/my-payments',
-    icon: DollarSign,
-  }
-];
 
 export function AppSidebar() {
+  const items = [
+    {
+      title: 'Products',
+      url: '/',
+      icon: ShoppingBag,
+    },
+    {
+      title: 'My Payments',
+      url: '/user/payments',
+      icon: DollarSign,
+    }
+  ];
+
+  const dispatch = useAppDispatch();
+  const stageOfPayment = useAppSelector((state) => state.checkout.stageOfPayment);
+  console.log({ stageOfPayment });
+  if (stageOfPayment !== 0) {
+    items.push({
+      title: 'Checkout',
+      url: '/checkout',
+      icon: ShoppingBag,
+    })
+  }
+
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -34,11 +52,11 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.name}>
+                <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href}>
+                    <a href={item.url}>
                       <item.icon />
-                      <span>{item.name}</span>
+                      <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -47,6 +65,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Button onClick={handleLogout}>
+                <LogOut /> Logout
+              </Button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }
