@@ -15,7 +15,7 @@ import { setDeliveryInfo, setPaymentInfo } from '../../infrastructure/redux/chec
 import { toast } from 'sonner';
 import { useAppSelector } from '@/store';
 
-export function CheckoutPage() {
+export default function CheckoutPage() {
   const navigate = useNavigate();
   const paymentFormRef = useRef<any>();
   const deliveryFormRef = useRef<any>();

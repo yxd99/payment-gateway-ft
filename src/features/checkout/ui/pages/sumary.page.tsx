@@ -10,7 +10,7 @@ import {
 } from '../../infrastructure/redux/api-service';
 import { toast } from 'sonner';
 
-export function SummaryPage() {
+export default function SummaryPage() {
   const navigate = useNavigate();
   const productInfo = useAppSelector((state) => state.productSelected);
   const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
