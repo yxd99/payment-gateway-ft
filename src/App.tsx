@@ -20,6 +20,10 @@ const SummaryPage = lazy(
   () => import('./features/checkout/ui/pages/sumary.page')
 );
 
+const UserPage = lazy(
+  () => import('./features/user/ui/pages/user.page')
+);
+
 const App: React.FC = () => {
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
@@ -34,6 +38,7 @@ const App: React.FC = () => {
                 <Route path='/products/:id' element={<ProductDetailPage />} />
                 <Route path='/checkout' element={<CheckoutPage />} />
                 <Route path='/summary' element={<SummaryPage />} />
+                <Route path='/user' element={<UserPage />} />
               </Routes>
             </Suspense>
           </BrowserRouter>

@@ -5,7 +5,6 @@ export interface PaymentApiForm {
   cardHolder: string;
   productId: string;
   installments: number;
-  email: string;
   acceptanceToken: string;
   acceptPersonalAuth: string;
 }

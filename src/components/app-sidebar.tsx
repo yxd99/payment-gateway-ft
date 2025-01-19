@@ -1,16 +1,14 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { DollarSign, ShoppingBag } from "lucide-react";
+import { DollarSign, ShoppingBag, User } from "lucide-react";
 
 const items = [
   {
@@ -22,7 +20,12 @@ const items = [
     name: 'My Payments',
     href: '/my-payments',
     icon: DollarSign,
-  }
+  },
+  {
+    name: 'User',
+    href: '/user',
+    icon: User,
+  },
 ];
 
 export function AppSidebar() {

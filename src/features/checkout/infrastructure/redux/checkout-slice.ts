@@ -7,7 +7,6 @@ interface PaymentInfo {
   expirationDate: string;
   cardHolder: string;
   installments: number;
-  email: string;
 }
 
 interface DeliveryInfo {
@@ -33,7 +32,6 @@ const initialState: PaymentState = {
     expirationDate: '',
     cardHolder: '',
     installments: 1,
-    email: '',
   },
   deliveryInfo: {
     address: '',

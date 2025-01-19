@@ -16,6 +16,7 @@ export default function SummaryPage() {
   const productInfo = useAppSelector((state) => state.productSelected);
   const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
   const deliveryInfo = useAppSelector((state) => state.checkout.deliveryInfo);
+  const userInfo = useAppSelector((state) => state.user); 
   const [submitPayment, { isLoading: sendingPayment }] =
     useSubmitPaymentMutation();
   const { data: acceptanceTokens } = useGetAcceptanceTokensQuery();
@@ -32,7 +33,7 @@ export default function SummaryPage() {
       cardHolder: paymentInfo.cardHolder,
       productId: productInfo.id,
       installments: paymentInfo.installments,
-      email: paymentInfo.email,
+      email: userInfo.email,
       acceptanceToken: acceptanceTokens.acceptanceToken,
       acceptPersonalAuth: acceptanceTokens.personalAuthToken,
       productQuantity: productInfo.quantity,
