@@ -12,18 +12,18 @@ import { DollarSign, ShoppingBag, User } from "lucide-react";
 
 const items = [
   {
-    name: 'Products',
-    href: '/',
+    title: 'Products',
+    url: '/',
     icon: ShoppingBag,
   },
   {
-    name: 'My Payments',
-    href: '/my-payments',
+    title: 'My Payments',
+    url: '/user/payments',
     icon: DollarSign,
   },
   {
-    name: 'User',
-    href: '/user',
+    title: 'User',
+    url: '/user',
     icon: User,
   },
 ];
@@ -37,11 +37,11 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.name}>
+                <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.href}>
+                    <a href={item.url}>
                       <item.icon />
-                      <span>{item.name}</span>
+                      <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

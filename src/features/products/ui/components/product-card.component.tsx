@@ -21,7 +21,7 @@ export default function ProductCard({ id, name, price, imageUrl, stock }: Produc
   }
 
   return (
-    <Card className="w-full max-w-sm overflow-hidden">
+    <Card className="w-full overflow-hidden">
       <CardHeader className="p-0">
         <div className="relative h-48 w-full">
           <img

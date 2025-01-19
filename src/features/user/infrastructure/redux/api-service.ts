@@ -20,6 +20,12 @@ export const userApiService = createApi({
         method: 'GET',
       }),
       transformResponse: (response: any): Payment[] => response.data,
+      merge: (current, next) => {
+        current.push(...next);
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      }
     }),
   }),
 });

@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userApiService } from "./api-service";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 
 interface User {
   email: string;
@@ -23,9 +23,5 @@ const userSlice = createSlice({
 });
 
 export const { setUser, clearStore } = userSlice.actions;
-export const userReducer = {
-  [userSlice.name]: userSlice.reducer,
-  [userApiService.reducerPath]: userApiService.reducer, 
-};
-export const userMiddleware = userApiService.middleware;
+export const userReducer = userSlice.reducer;
 export default userReducer;

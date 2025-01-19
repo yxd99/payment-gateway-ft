@@ -24,11 +24,15 @@ const UserPage = lazy(
   () => import('./features/user/ui/pages/user.page')
 );
 
+const PaymentsPage = lazy(
+  () => import('./features/user/ui/pages/payments.page')
+);
+
 const App: React.FC = () => {
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <Provider store={store}>
-        <SidebarProvider>
+        <SidebarProvider defaultOpen={false}>
           <AppSidebar />
           <SidebarTrigger />
           <BrowserRouter>
@@ -38,7 +42,10 @@ const App: React.FC = () => {
                 <Route path='/products/:id' element={<ProductDetailPage />} />
                 <Route path='/checkout' element={<CheckoutPage />} />
                 <Route path='/summary' element={<SummaryPage />} />
-                <Route path='/user' element={<UserPage />} />
+                <Route path='/user' >
+                  <Route path='' element={<UserPage />} />
+                  <Route path='payments' element={<PaymentsPage />} />
+                </Route>
               </Routes>
             </Suspense>
           </BrowserRouter>

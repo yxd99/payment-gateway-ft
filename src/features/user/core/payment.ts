@@ -13,6 +13,7 @@ export class Payment {
     public createdAt: string,
     public reference: string,
     public customerEmail: string,
+    public productQuantity: number,
     public status: string,
     public statusMessage: string
   ) {}

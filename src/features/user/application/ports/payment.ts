@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 export interface Payment {
   id: string;
   reference: string;
@@ -11,4 +13,5 @@ export interface Payment {
   phone: string;
   state: string;
   productQuantity: number;
+  product: Product;
 }
