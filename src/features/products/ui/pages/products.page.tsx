@@ -6,7 +6,7 @@ import { getProducts } from '../../application/use-cases/get-products';
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
-  const { isFetching, isLoading, products, hasMore } = getProducts({ size: 1, page });
+  const { isFetching, isLoading, products, hasMore } = getProducts({ size: 15, page });
   const { open } = useSidebar();
   const lastCardRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,7 +21,7 @@ export default function ProductsPage() {
           setPage((prevPage) => prevPage + 1);
         }
       },
-      { threshold: 1.0 }
+      { threshold: .1 }
     );
 
     if (lastCardRef.current) {

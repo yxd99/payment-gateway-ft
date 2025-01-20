@@ -15,6 +15,10 @@ export class Payment {
     public customerEmail: string,
     public productQuantity: number,
     public status: string,
-    public statusMessage: string
+    public statusMessage: string,
+    public address: string,
+    public city: string,
+    public phone: string,
+    public department: string
   ) {}
 }

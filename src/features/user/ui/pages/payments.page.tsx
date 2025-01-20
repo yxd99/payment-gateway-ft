@@ -13,7 +13,10 @@ import { NavLink } from 'react-router';
 
 export default function PaymentsPage() {
   const [page, setPage] = useState(1);
-  const { isLoading, payments, isFetching, hasMore } = getPayments(page, 1);
+  const { isLoading, payments, isFetching, hasMore } = getPayments({
+    page,
+    size: 15,
+  });
 
   const lastRowRef = useRef(null);
   

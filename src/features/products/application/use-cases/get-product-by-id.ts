@@ -1,10 +1,5 @@
-import { Product } from "@features/products/core/product";
-import { ProductRepository } from "@features/products/application/ports/product-repository";
+import { fetchProductById } from "../services/fetch-product-by-id";
 
-export class GetProductById {
-  constructor(private readonly repository: ProductRepository) {}
-
-  async execute(id: string): Promise<Product> {
-    return this.repository.getProductById(id);
-  }
+export const getProductById = (id: string) => { 
+  return fetchProductById(id);
 }

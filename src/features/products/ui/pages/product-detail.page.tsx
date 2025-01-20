@@ -1,14 +1,15 @@
 import { useNavigate, useParams } from 'react-router';
 import { ProductDetail } from '@features/products/ui/components/product-detail.component';
-import { useProductById } from '@features/products/ui/hooks/use-product-by-id';
 import { MoveLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { getProductById } from '../../application/use-cases/get-product-by-id';
+import Loading from '@/components/loading';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { product, error, loading } = useProductById(id!);
+  const { product, isLoading } = getProductById(id!);
 
   const handleBack = () => {
     navigate(-1);
@@ -28,9 +29,9 @@ export default function ProductDetailPage() {
           Product Detail
         </h1>
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p className='error'>{error}</p>}
+      {isLoading && <Loading />}
       {product && <ProductDetail {...product} />}
+      {!product && !isLoading && <p className='error'>Product not found</p>}
     </div>
   );
 }

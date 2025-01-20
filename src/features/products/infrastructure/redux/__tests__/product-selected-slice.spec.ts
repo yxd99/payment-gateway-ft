@@ -1,4 +1,5 @@
-import productSelectedReducer, { setProductSelected, clearProductSelected, ProductSelected } from '../product-selected-slice';
+import { ProductSelected } from '@/features/products/application/ports/product-selected-slice';
+import productSelectedReducer, { setProductSelected, clearProductSelected } from '../product-selected-slice';
 
 describe('productSelectedSlice', () => {
   const initialState: ProductSelected = {
@@ -6,6 +7,8 @@ describe('productSelectedSlice', () => {
     name: '',
     price: 0,
     imageUrl: '',
+    stock: 0,
+    quantity: 0,
   };
 
   test('debe retornar el estado inicial', () => {
@@ -19,6 +22,8 @@ describe('productSelectedSlice', () => {
       name: 'Producto de Prueba',
       price: 100,
       imageUrl: 'http://example.com/image.jpg',
+      stock: 10,
+      quantity: 1,
     };
 
     const result = productSelectedReducer(initialState, setProductSelected(mockProduct));
@@ -31,6 +36,8 @@ describe('productSelectedSlice', () => {
       name: 'Producto de Prueba',
       price: 100,
       imageUrl: 'http://example.com/image.jpg',
+      stock: 10,
+      quantity: 1,
     };
 
     let result = productSelectedReducer(initialState, setProductSelected(mockProduct));

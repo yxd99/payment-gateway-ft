@@ -1,15 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { userApiService } from './api-service';
 import { getPayments } from '../../application/use-cases/get-payments';
-import { Payment } from '../../core/payment';
-
-interface PaymentSlice {
-  payments: {
-    isLoading: boolean;
-    isError: boolean;
-    data: Payment[];
-  };
-}
+import { PaymentSlice } from '../../application/ports/payment-slice';
+import { Pagination } from '../../application/ports/pagination';
 
 const initialState: PaymentSlice = {
   payments: {
@@ -19,14 +12,9 @@ const initialState: PaymentSlice = {
   }
 };
 
-interface fetchPaymentsParam {
-  page: number;
-  size: number;
-}
-
 export const fetchPayments = createAsyncThunk(
   'user/fetchPayments',
-  async ({ page, size }: fetchPaymentsParam) => {
+  async ({ page, size }: Pagination) => {
     const data = await getPayments(page, size);
     return data;
   }

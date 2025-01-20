@@ -43,7 +43,7 @@ export default function SummaryPage() {
         address: deliveryInfo.address,
         city: deliveryInfo.city,
         phone: deliveryInfo.phone,
-        state: deliveryInfo.state,
+        department: deliveryInfo.department, 
       },
     };
 

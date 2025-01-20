@@ -1,24 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Product } from '../../core/product';
 import { getProducts } from '../../application/use-cases/get-products';
 import { productsApiService } from './api-service';
-
-interface ProductsSlice {
-  isLoading: boolean;
-  isError: boolean;
-  data: Product[];
-}
+import { Pagination } from '../../application/ports/pagination';
+import { ProductsSlice } from '../../application/ports/products-slice';
 
 const initialState: ProductsSlice = {
   isLoading: false,
   isError: false,
   data: [],
 };
-
-interface Pagination {
-  page: number;
-  size: number;
-}
 
 export const fetchPayments = createAsyncThunk(
   'products/fetchProducts',

@@ -23,7 +23,7 @@ type DeliveryInfoFormProps = {
   initialValues?: {
     address: string;
     city: string;
-    state: string;
+    department: string;
     phone: string;
   };
 };
@@ -35,7 +35,7 @@ export const DeliveryInfoForm = forwardRef(
       defaultValues: {
         address: initialValues?.address || '',
         city: initialValues?.city || '',
-        state: initialValues?.state || '',
+        department: initialValues?.department || '',
         phone: initialValues?.phone || '',
       },
     });
@@ -119,10 +119,10 @@ export const DeliveryInfoForm = forwardRef(
                 />
                 <FormField
                   control={form.control}
-                  name='state'
+                  name='department'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>State</FormLabel>
+                      <FormLabel>Department</FormLabel>
                       <FormControl>
                         <Input
                           readOnly={!canEdit}
@@ -131,7 +131,7 @@ export const DeliveryInfoForm = forwardRef(
                         />
                       </FormControl>
                       <FormDescription>
-                        This is the state of the delivery location.
+                        This is the department of the delivery location.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

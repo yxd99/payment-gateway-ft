@@ -3,15 +3,15 @@ import { Product } from "./product";
 export interface Payment {
   id: string;
   reference: string;
-  amount: string;
+  amount: number;
   transactionId: string;
-  createdAt: Date;
+  createdAt: string;
   customerEmail: string;
   status: string;
   address: string;
   city: string;
   phone: string;
-  state: string;
+  department: string;
   productQuantity: number;
   product: Product;
 }

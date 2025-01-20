@@ -1,11 +1,7 @@
 import { config } from '@/config/envs';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Product } from '../../core/product';
-
-export interface Pagination {
-  page: number;
-  size: number;
-}
+import { Pagination } from '../../application/ports/pagination';
 
 export const productsApiService = createApi({
   reducerPath: 'productsApi',
@@ -26,7 +22,14 @@ export const productsApiService = createApi({
         return currentArg !== previousArg;
       }
     }),
+    getProductById: builder.query({
+      query: (id) => ({
+        url: `/products/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: any): Product => response.data,
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = productsApiService;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productsApiService;

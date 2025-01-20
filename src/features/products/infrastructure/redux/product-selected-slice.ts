@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface ProductSelected {
-  id: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-  quantity: number;
-  stock: number;
-}
+import { ProductSelected } from '../../application/ports/product-selected-slice';
 
 const initialState: ProductSelected = {
   id: '',
@@ -35,6 +27,7 @@ const productSelectedSlice = createSlice({
   },
 });
 
-export const { setProductSelected, clearProductSelected, setProductQuantity } = productSelectedSlice.actions;
+export const { setProductSelected, clearProductSelected, setProductQuantity } =
+  productSelectedSlice.actions;
 
 export default productSelectedSlice.reducer;
