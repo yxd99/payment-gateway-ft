@@ -2,11 +2,11 @@ import { ProductCard} from '@features/products/ui/components/product-card.compon
 import { useEffect, useRef, useState } from 'react';
 import { useSidebar } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
-import { getProducts } from '../../application/use-cases/get-products';
+import { useProducts } from '../hooks/use-products';
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
-  const { isFetching, isLoading, products, hasMore } = getProducts({ size: 15, page });
+  const { isFetching, isLoading, products, hasMore } = useProducts({ size: 15, page });
   const { open } = useSidebar();
   const lastCardRef = useRef<HTMLDivElement | null>(null);
 
@@ -14,26 +14,28 @@ export default function ProductsPage() {
     if (isFetching) {
       return;
     }
-
+  
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && hasMore) {
           setPage((prevPage) => prevPage + 1);
         }
       },
-      { threshold: .1 }
+      { threshold: 0.1 }
     );
-
-    if (lastCardRef.current) {
-      observer.observe(lastCardRef.current);
+  
+    const currentRef = lastCardRef.current;
+  
+    if (currentRef) {
+      observer.observe(currentRef);
     }
-
+  
     return () => {
-      if (lastCardRef.current) {
-        observer.unobserve(lastCardRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [isLoading, products]);
+  }, [isLoading, products, hasMore, isFetching]);
 
   return (
     <div className='w-full'>

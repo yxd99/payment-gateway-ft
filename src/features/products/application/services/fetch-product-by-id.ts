@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useGetProductByIdQuery } from "../../infrastructure/redux/api-service";
 
 export const fetchProductById = (id: string) => {

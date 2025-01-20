@@ -17,8 +17,8 @@ import { useAppSelector } from '@/store';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const paymentFormRef = useRef<any>();
-  const deliveryFormRef = useRef<any>();
+  const paymentFormRef = useRef<HTMLFormElement>();
+  const deliveryFormRef = useRef<HTMLFormElement>();
   const dispatch = useDispatch();
   const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
   const deliveryInfo = useAppSelector((state) => state.checkout.deliveryInfo);

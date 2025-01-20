@@ -14,7 +14,7 @@ export const productsApiService = createApi({
         url: `/products?page=${page}&size=${size}`,
         method: 'GET',
       }),
-      transformResponse: (response: any): Product[] => response.data,
+      transformResponse: (response: Record<string, unknown>): Product[] => response.data as Product[],
       merge: (current, next) => {
         current.push(...next);
       },
@@ -27,7 +27,7 @@ export const productsApiService = createApi({
         url: `/products/${id}`,
         method: 'GET',
       }),
-      transformResponse: (response: any): Product => response.data,
+      transformResponse: (response: Record<string, unknown>): Product => response.data as Product,
     }),
   }),
 });

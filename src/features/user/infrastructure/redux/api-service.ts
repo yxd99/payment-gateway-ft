@@ -14,7 +14,7 @@ export const userApiService = createApi({
         url: `/payments/my-payments/${email}?page=${page}&size=${size}`,
         method: 'GET',
       }),
-      transformResponse: (response: any): Payment[] => response.data,
+      transformResponse: (response: Record<string, unknown>): Payment[] => response.data as Payment[],
       merge: (current, next) => {
         if (current) {
           return [...current, ...next];

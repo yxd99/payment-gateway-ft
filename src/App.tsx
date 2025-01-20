@@ -10,7 +10,7 @@ import PublicRoutes from './routes/public.routes';
 import PrivateRoutes from './routes/private.routes';
 
 const App: React.FC = () => {
-  const email = useAppSelector((state: any) => state.user.email);
+  const email = useAppSelector((state) => state.user.email);
 
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>

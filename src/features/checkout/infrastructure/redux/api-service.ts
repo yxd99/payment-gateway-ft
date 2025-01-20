@@ -15,14 +15,19 @@ export const checkoutApiService = createApi({
         body: payload,
       }),
     }),
-    getAcceptanceTokens: builder.query<PaymentAcceptanceApiTokenResponse, void>({
-      query: () => ({
-        url: '/payments/acceptance-token',
-        method: 'GET',
-      }),
-      transformResponse: (response: any) => response.data,
-    }),
+    getAcceptanceTokens: builder.query<PaymentAcceptanceApiTokenResponse, void>(
+      {
+        query: () => ({
+          url: '/payments/acceptance-token',
+          method: 'GET',
+        }),
+        transformResponse: (response: {
+          data: PaymentAcceptanceApiTokenResponse;
+        }) => response.data,
+      }
+    ),
   }),
 });
 
-export const { useSubmitPaymentMutation, useGetAcceptanceTokensQuery } = checkoutApiService;
+export const { useSubmitPaymentMutation, useGetAcceptanceTokensQuery } =
+  checkoutApiService;
