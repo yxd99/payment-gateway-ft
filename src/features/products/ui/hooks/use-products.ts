@@ -17,14 +17,16 @@ export const useProducts = (pagination: Pagination) => {
 
     if (productsQuery.length > 0) {
       totalProducts = [...products, ...productsQuery];
-      setHasMore(true);
     } else {
       totalProducts = [...products];
-      setHasMore(false);
     }
-
-    setProducts([...new Set(totalProducts)]);
+    const uniqueProducts = [...new Set(totalProducts)];
+    setProducts(uniqueProducts);
   }, [isFetching, products, productsQuery]);
+
+  useEffect(() => {
+    setHasMore(products.length === pagination.size * pagination.page);
+  }, [products]);
 
   return {
     hasMore,
