@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getPayments } from '../../application/use-cases/get-payments';
 import {
   Table,
@@ -13,23 +13,34 @@ import { NavLink } from 'react-router';
 
 export default function PaymentsPage() {
   const [page, setPage] = useState(1);
-  const { isLoading, payments, isFetching } = getPayments(page, 15);
+  const { isLoading, payments, isFetching, hasMore } = getPayments(page, 1);
 
+  const lastRowRef = useRef(null);
+  
   useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isFetching) {
-        setPage(page + 1);
+    if (isFetching) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: .1 }
+    );
+
+    if (lastRowRef.current) {
+      observer.observe(lastRowRef.current);
+    }
+
+    return () => {
+      if (lastRowRef.current) {
+        observer.unobserve(lastRowRef.current);
       }
     };
-
-    document.addEventListener('scroll', onScroll);
-
-    return function () {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, [page, isFetching]);
+  }, [isLoading, payments]);
 
   return (
     <div className='flex flex-col p-5 w-full'>
@@ -48,8 +59,8 @@ export default function PaymentsPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {payments.map((payment) => (
-            <TableRow key={payment.id}>
+          {payments.map((payment, index) => (
+            <TableRow ref={index === payments.length - 1 ? lastRowRef : null} key={payment.id}>
               <TableCell className='font-medium'>
                 {payment.id}
               </TableCell>

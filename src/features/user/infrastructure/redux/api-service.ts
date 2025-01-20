@@ -21,7 +21,10 @@ export const userApiService = createApi({
       }),
       transformResponse: (response: any): Payment[] => response.data,
       merge: (current, next) => {
-        current.push(...next);
+        if (current) {
+          return [...current, ...next];
+        }
+        return [...next];
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;

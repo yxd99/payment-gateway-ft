@@ -1,11 +1,31 @@
-import { Product } from "@features/products/core/product";
-import { ProductRepository } from "@features/products/application/ports/product-repository";
+import { useEffect, useState } from "react";
+import { Product } from "../../core/product";
 import { Pagination } from "../ports/pagination";
+import { fetchProducts } from "../services/fetch-products";
 
-export class GetProducts {
-  constructor(private readonly repository: ProductRepository) {}
+export const getProducts = (pagination: Pagination) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [hasMore, setHasMore] = useState(false);
+  const { products: productsQuery, isFetching, ...rest } = fetchProducts(pagination);
 
-  async execute(pagination: Pagination): Promise<Product[]> {
-    return this.repository.getProducts(pagination);
-  }
+  useEffect(() => {
+    let totalProducts: Product[] = [];
+
+    if (productsQuery.length > 0) {
+      totalProducts = [...products, ...productsQuery];
+      setHasMore(true);
+    } else {
+      totalProducts = [...products];
+      setHasMore(false);
+    }
+
+    setProducts([...new Set(totalProducts)]);
+  }, [isFetching]);
+
+  return {
+    hasMore,
+    products,
+    isFetching,
+    ...rest,
+  };
 }
