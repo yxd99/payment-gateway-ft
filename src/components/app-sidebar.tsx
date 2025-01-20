@@ -31,7 +31,7 @@ export function AppSidebar() {
 
   const dispatch = useAppDispatch();
   const stageOfPayment = useAppSelector((state) => state.checkout.stageOfPayment);
-  console.log({ stageOfPayment });
+  
   if (stageOfPayment !== 0) {
     items.push({
       title: 'Checkout',

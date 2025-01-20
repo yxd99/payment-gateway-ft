@@ -32,7 +32,6 @@ export default function CheckoutPage() {
       dispatch(setDeliveryInfo(deliveryInfo));
       dispatch(setStageOfPayment(2));
     } else {
-      console.log({ paymentInfo, deliveryInfo });
       toast.error('Please complete all required fields!');
     }
   };

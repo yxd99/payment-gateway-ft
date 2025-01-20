@@ -44,12 +44,6 @@ export const PaymentInfoForm = forwardRef(
     });
     const [focused, setFocused] = useState<Focused | undefined>(undefined);
 
-    const handleSubmit = async (
-      values: z.infer<typeof paymentInfoSchema>
-    ) => {
-      console.log(values);
-    };
-
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
       setFocused(e.target.name as Focused);
     };
@@ -57,7 +51,6 @@ export const PaymentInfoForm = forwardRef(
     useImperativeHandle(ref, () => ({
       validate: async () => {
         const isValid = await form.trigger();
-        console.log({ isValid });
         return isValid ? form.getValues() : null;
       },
     }));
@@ -76,7 +69,7 @@ export const PaymentInfoForm = forwardRef(
               name={form.watch('cardHolder')}
               focused={focused}
             />
-            <form className='mt-4' onSubmit={form.handleSubmit(handleSubmit)}>
+            <form className='mt-4'>
               <FormField
                 control={form.control}
                 name='cardNumber'

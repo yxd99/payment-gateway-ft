@@ -40,10 +40,6 @@ export const DeliveryInfoForm = forwardRef(
       },
     });
 
-    const handleSubmit = async (values: z.infer<typeof deliveryInfoSchema>) => {
-      console.log(values);
-    };
-
     useImperativeHandle(ref, () => ({
       validate: async () => {
         const isValid = await form.trigger();
@@ -58,7 +54,7 @@ export const DeliveryInfoForm = forwardRef(
             <h1 className='text-2xl font-bold'>Delivery Info</h1>
           </CardHeader>
           <CardContent>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <form>
               <FormField
                 control={form.control}
                 name='phone'

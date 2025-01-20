@@ -56,7 +56,6 @@ const paymentSlice = createSlice({
       state.deliveryInfo = initialState.deliveryInfo;
     },
     setStageOfPayment(state, action: PayloadAction<StageOfPayment>) {
-      console.log({ action });
       state.stageOfPayment = action.payload;
     },
   },

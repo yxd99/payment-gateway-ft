@@ -55,13 +55,12 @@ export default function SummaryPage() {
       toast.success('Payment sent!');
       navigate(`/products/${productInfo.id}`);
     } catch (error) {
-      console.log({ error });
       toast.error(`Something went wrong! ${error}`);
     }
   };
 
   return (
-    <div className='flex flex-col gap-2 m-2'>
+    <div className='flex flex-col gap-2 m-2 w-full'>
       <h1 className='text-2xl font-bold text-center border-b border-b-slate-200'>
         Summary
       </h1>
