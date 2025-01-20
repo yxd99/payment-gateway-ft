@@ -12,26 +12,26 @@ import PrivateRoutes from './routes/private.routes';
 const App: React.FC = () => {
   const email = useAppSelector((state) => state.user.email);
 
+  const RoutesContent = email ? (
+    <>
+      <AppSidebar />
+      <SidebarTrigger />
+      <Routes>
+        <Route path="/*" element={<PrivateRoutes />} />
+      </Routes>
+    </>
+  ) : (
+    <Routes>
+      <Route path="/*" element={<PublicRoutes />} />
+    </Routes>
+  );
+
   return (
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Provider store={store}>
         <SidebarProvider defaultOpen={false}>
-          {email && (
-            <>
-              <AppSidebar />
-              <SidebarTrigger />
-            </>
-          )}
           <BrowserRouter>
-            <Suspense fallback={<Loading />}>
-              <Routes>
-                {email ? (
-                  <Route path='/*' element={<PrivateRoutes />} />
-                ) : (
-                  <Route path='/*' element={<PublicRoutes />} />
-                )}
-              </Routes>
-            </Suspense>
+            <Suspense fallback={<Loading />}>{RoutesContent}</Suspense>
           </BrowserRouter>
         </SidebarProvider>
       </Provider>
