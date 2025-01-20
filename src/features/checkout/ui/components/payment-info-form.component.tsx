@@ -7,7 +7,6 @@ import Cards, { Focused } from 'react-credit-cards-2';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -85,9 +84,6 @@ export const PaymentInfoForm = forwardRef(
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is the card number where the payment will be made.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -109,9 +105,6 @@ export const PaymentInfoForm = forwardRef(
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is the card security code.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -129,9 +122,6 @@ export const PaymentInfoForm = forwardRef(
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is the expiration date of the card.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -147,12 +137,11 @@ export const PaymentInfoForm = forwardRef(
                           onFocus={handleFocus}
                           readOnly={!canEdit}
                           placeholder='1'
+                          min={1}
+                          type='number'
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is the number of installments.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -172,9 +161,6 @@ export const PaymentInfoForm = forwardRef(
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is the name of the card holder.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

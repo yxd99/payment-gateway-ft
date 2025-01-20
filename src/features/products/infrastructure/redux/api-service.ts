@@ -23,6 +23,7 @@ export const productsApiService = createApi({
       }
     }),
     getProductById: builder.query({
+      keepUnusedDataFor: 5,
       query: (id) => ({
         url: `/products/${id}`,
         method: 'GET',

@@ -13,20 +13,18 @@ export const useProducts = (pagination: Pagination) => {
   } = getProducts(pagination);
 
   useEffect(() => {
-    let totalProducts: Product[] = [];
-
     if (productsQuery.length > 0) {
-      totalProducts = [...products, ...productsQuery];
-    } else {
-      totalProducts = [...products];
+      const updatedProducts = Array.from(new Set([...products, ...productsQuery].map(a => a.id)))
+        .map(id => [...products, ...productsQuery].find(a => a.id === id))
+        .filter((product): product is Product => product !== undefined);
+
+      setProducts(updatedProducts);
     }
-    const uniqueProducts = [...new Set(totalProducts)];
-    setProducts(uniqueProducts);
-  }, [isFetching, products, productsQuery]);
+  }, [productsQuery]);
 
   useEffect(() => {
     setHasMore(products.length === pagination.size * pagination.page);
-  }, [products]);
+  }, [products, pagination.size, pagination.page]);
 
   return {
     hasMore,

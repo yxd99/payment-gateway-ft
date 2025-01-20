@@ -34,7 +34,7 @@ export default function SummaryPage() {
       expirationDate: paymentInfo.expirationDate,
       cardHolder: paymentInfo.cardHolder,
       productId: productInfo.id,
-      installments: paymentInfo.installments,
+      installments: Number(paymentInfo.installments),
       email: userInfo.email,
       acceptanceToken: acceptanceTokens.acceptanceToken,
       acceptPersonalAuth: acceptanceTokens.personalAuthToken,
@@ -49,14 +49,21 @@ export default function SummaryPage() {
 
     try {
       await submitPayment(payload).unwrap();
-      dispatch(clearStore());
-      dispatch(clearProductSelected())
-      dispatch(setStageOfPayment(0));
-      toast.success('Payment sent!');
       navigate(`/products/${productInfo.id}`);
+
+      setTimeout(() => {
+        dispatch(clearStore());
+        dispatch(clearProductSelected())
+        dispatch(setStageOfPayment(0));
+      }, 1000);      
+      toast.success('Payment sent!');
     } catch (error) {
       toast.error(`Something went wrong! ${error}`);
     }
+  };
+
+  const handleBack = () => {
+      dispatch(setStageOfPayment(1));
   };
 
   return (
@@ -68,7 +75,7 @@ export default function SummaryPage() {
         <ProductInfo canEdit={false} />
         <PaymentInfoForm canEdit={false} initialValues={paymentInfo} />
         <DeliveryInfoForm
-          className='col-span-2'
+          className='md:col-span-2'
           canEdit={false}
           initialValues={deliveryInfo}
         />
@@ -77,7 +84,7 @@ export default function SummaryPage() {
         When you click on the button, you are accepting the terms and
         conditions.
       </p>
-      <Button onClick={() => navigate(-1)} disabled={sendingPayment} variant='secondary'>
+      <Button onClick={handleBack} disabled={sendingPayment} variant='secondary'>
         Back
       </Button>
       <Button

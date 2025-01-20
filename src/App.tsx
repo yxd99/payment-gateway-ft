@@ -13,29 +13,29 @@ const App: React.FC = () => {
   const email = useAppSelector((state) => state.user.email);
 
   return (
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      <Provider store={store}>
-        <SidebarProvider defaultOpen={false}>
-          {email && (
-            <>
-              <AppSidebar />
-              <SidebarTrigger />
-            </>
-          )}
-          <BrowserRouter>
-            <Suspense fallback={<Loading />}>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <Provider store={store}>
+      <SidebarProvider defaultOpen={false}>
+        <BrowserRouter>
+          <Suspense fallback={<Loading />}>
+            {email ? (
+              <>
+                <AppSidebar />
+                <SidebarTrigger />
+                <Routes>
+                  <Route path="*" element={<PrivateRoutes />} />
+                </Routes>
+              </>
+            ) : (
               <Routes>
-                {email ? (
-                  <Route path='/*' element={<PrivateRoutes />} />
-                ) : (
-                  <Route path='/*' element={<PublicRoutes />} />
-                )}
+                <Route path="*" element={<PublicRoutes />} />
               </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </SidebarProvider>
-      </Provider>
-    </ThemeProvider>
+            )}
+          </Suspense>
+        </BrowserRouter>
+      </SidebarProvider>
+    </Provider>
+  </ThemeProvider>
   );
 };
 
