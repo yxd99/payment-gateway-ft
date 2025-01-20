@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/store";
-import { getPayments } from "@features/user/application/use-cases/get-payments"
+import { getPayments } from "@features/user/application/use-cases/get-payments";
 import { Pagination } from "@features/user/application/ports/pagination";
 import { useEffect, useState } from "react";
 import { Payment } from "@features/user/core/payment";
@@ -18,18 +18,18 @@ export const useGetPayments = (pagination: Pagination) => {
   });
 
   useEffect(() => {
-    let totalPayments: Payment[] = [];
     if (paymentQuery.length > 0) {
-      totalPayments = [...payments, ...paymentQuery];
-    } else {
-      totalPayments = [...payments];
+      const updatedPayments = Array.from(new Set([...payments, ...paymentQuery].map(a => a.id)))
+        .map(id => [...payments, ...paymentQuery].find(a => a.id === id))
+        .filter((payment): payment is Payment => payment !== undefined);
+
+      setPayments(updatedPayments);
     }
-    setPayments([...new Set(totalPayments)]);
-  }, [isFetching, paymentQuery, payments]);
+  }, [paymentQuery]);
 
   useEffect(() => {
     setHasMore(payments.length === pagination.size * pagination.page);
-  }, [payments]);
+  }, [payments, pagination.size, pagination.page]);
 
   return {
     hasMore,
@@ -37,4 +37,4 @@ export const useGetPayments = (pagination: Pagination) => {
     isFetching,
     ...rest
   };
-}
+};

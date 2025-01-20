@@ -19,7 +19,7 @@ interface ProductCardProps {
   stock: number;
 }
 
-export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
+export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>( 
   ({ id, name, price, imageUrl, stock }, ref) => {
     const navigate = useNavigate();
     const inStock = stock > 0;
@@ -31,11 +31,11 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
     return (
       <Card ref={ref} className='size-full overflow-hidden'>
         <CardHeader className='p-0'>
-          <div className='relative h-64 w-full border-gray-200 border-b'>
+          <div className='relative h-96 w-full border-gray-200 border-b'>
             <img
               src={imageUrl}
               alt={name}
-              className='fill-current object-cove size-full'
+              className='fill-current object-cover size-full' // Corrige el typo aquí
             />
             <Badge
               className='absolute top-2 left-2'
@@ -53,7 +53,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(
         </CardContent>
         <CardFooter className='p-4 pt-0'>
           <Button onClick={handleClick} className='w-full' disabled={!inStock}>
-            {inStock ? 'Ver' : 'Fuera de stock'}
+            {inStock ? 'Buy' : 'Out of stock'}
           </Button>
         </CardFooter>
       </Card>

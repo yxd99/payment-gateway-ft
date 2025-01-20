@@ -5,7 +5,6 @@ import { z } from 'zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -69,9 +68,6 @@ export const DeliveryInfoForm = forwardRef(
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is the phone number of the delivery location.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -89,9 +85,6 @@ export const DeliveryInfoForm = forwardRef(
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is the street address of the delivery location.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -110,9 +103,6 @@ export const DeliveryInfoForm = forwardRef(
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is the city of the delivery location.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -130,9 +120,6 @@ export const DeliveryInfoForm = forwardRef(
                           {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is the department of the delivery location.
-                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

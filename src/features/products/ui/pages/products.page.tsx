@@ -6,7 +6,7 @@ import { useProducts } from '@features/products/ui/hooks/use-products';
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
-  const { isFetching, isLoading, products, hasMore } = useProducts({ size: 15, page });
+  const { isFetching, products, hasMore } = useProducts({ size: 15, page });
   const { open } = useSidebar();
   const lastCardRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,7 +35,7 @@ export default function ProductsPage() {
         observer.unobserve(currentRef);
       }
     };
-  }, [isLoading, products, hasMore, isFetching]);
+  }, [hasMore]);
 
   return (
     <div className='w-full'>
