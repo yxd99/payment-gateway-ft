@@ -1,6 +1,6 @@
 import { config } from '@/config/envs';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PaymentAcceptanceApiTokenResponse } from '../../application/ports/payment-acceptance-api-token-response';
+import { PaymentAcceptanceApiTokenResponse } from '@features/checkout/application/ports/payment-acceptance-api-token-response';
 
 export const checkoutApiService = createApi({
   reducerPath: 'checkoutApi',
@@ -15,14 +15,19 @@ export const checkoutApiService = createApi({
         body: payload,
       }),
     }),
-    getAcceptanceTokens: builder.query<PaymentAcceptanceApiTokenResponse, void>({
-      query: () => ({
-        url: '/payments/acceptance-token',
-        method: 'GET',
-      }),
-      transformResponse: (response: any) => response.data,
-    }),
+    getAcceptanceTokens: builder.query<PaymentAcceptanceApiTokenResponse, void>(
+      {
+        query: () => ({
+          url: '/payments/acceptance-token',
+          method: 'GET',
+        }),
+        transformResponse: (response: {
+          data: PaymentAcceptanceApiTokenResponse;
+        }) => response.data,
+      }
+    ),
   }),
 });
 
-export const { useSubmitPaymentMutation, useGetAcceptanceTokensQuery } = checkoutApiService;
+export const { useSubmitPaymentMutation, useGetAcceptanceTokensQuery } =
+  checkoutApiService;

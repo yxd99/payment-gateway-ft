@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { getPayments } from '../../application/use-cases/get-payments';
+import { useEffect, useRef, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -10,26 +9,44 @@ import {
 } from '@/components/ui/table';
 import { formatCurrency } from '@/lib/utils';
 import { NavLink } from 'react-router';
+import { useGetPayments } from '@features/user/ui/hooks/use-get-payments';
 
 export default function PaymentsPage() {
   const [page, setPage] = useState(1);
-  const { isLoading, payments, isFetching } = getPayments(page, 15);
+  const { isLoading, payments, isFetching, hasMore } = useGetPayments({
+    page,
+    size: 15,
+  });
 
+  const lastRowRef = useRef<HTMLTableRowElement | null>(null);
+  
   useEffect(() => {
-    const onScroll = () => {
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight;
-      if (scrolledToBottom && !isFetching) {
-        setPage(page + 1);
+    if (isFetching) {
+      return;
+    }
+  
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+  
+    const currentRef = lastRowRef.current;
+  
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+  
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-
-    document.addEventListener('scroll', onScroll);
-
-    return function () {
-      document.removeEventListener('scroll', onScroll);
-    };
-  }, [page, isFetching]);
+  }, [isLoading, payments, hasMore, isFetching]);
+  
 
   return (
     <div className='flex flex-col p-5 w-full'>
@@ -48,8 +65,8 @@ export default function PaymentsPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {payments.map((payment) => (
-            <TableRow key={payment.id}>
+          {payments.map((payment, index) => (
+            <TableRow ref={index === payments.length - 1 ? lastRowRef : null} key={payment.id}>
               <TableCell className='font-medium'>
                 {payment.id}
               </TableCell>

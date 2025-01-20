@@ -1,44 +1,58 @@
-import { useProducts } from '@features/products/ui/hooks/use-products';
-import ProductCard from '@features/products/ui/components/product-card.component';
-import { useEffect, useState } from 'react';
+import { ProductCard} from '@features/products/ui/components/product-card.component';
+import { useEffect, useRef, useState } from 'react';
 import { useSidebar } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
+import { useProducts } from '@features/products/ui/hooks/use-products';
 
 export default function ProductsPage() {
   const [page, setPage] = useState(1);
-  const { products, loading, error } = useProducts({ size: 10, page });
+  const { isFetching, isLoading, products, hasMore } = useProducts({ size: 15, page });
   const { open } = useSidebar();
+  const lastCardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.body.scrollHeight;
-
-      if (scrollTop + windowHeight === documentHeight) {
-        setPage((prevPage) => prevPage + 1);
+    if (isFetching) {
+      return;
+    }
+  
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+  
+    const currentRef = lastCardRef.current;
+  
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+  
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-
-    window.addEventListener('scroll', onScroll);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [page, loading]);
+  }, [isLoading, products, hasMore, isFetching]);
 
   return (
     <div className='w-full'>
       <h1 className='text-3xl font-bold text-center p-5 border-b-slate-600 border-b'>
         Products
       </h1>
-      <div className={
-        cn('grid grid-cols-1 gap-4 m-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4', {
-          'md:grid-cols-2 lg:grid-cols-3': open,
-        })
-      }>
-        {products.map((product) => (
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-4 m-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+          {
+            'md:grid-cols-2 lg:grid-cols-3': open,
+          }
+        )}
+      >
+        {products.map((product, index) => (
           <ProductCard
+            ref={index === products.length - 1 ? lastCardRef : null}
             key={product.id}
             id={product.id}
             name={product.name}
@@ -48,8 +62,6 @@ export default function ProductsPage() {
           />
         ))}
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p className='error'>{error}</p>}
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { PaymentInfoForm } from '../components/payment-info-form.component';
-import { DeliveryInfoForm } from '../components/delivery-info-form.component';
-import { ProductInfo } from '../components/product-info.component';
+import { PaymentInfoForm } from '@features/checkout/ui/components/payment-info-form.component';
+import { DeliveryInfoForm } from '@features/checkout/ui/components/delivery-info-form.component';
+import { ProductInfo } from '@features/checkout/ui/components/product-info.component';
 import {
   Card,
   CardContent,
@@ -11,14 +11,18 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDeliveryInfo, setPaymentInfo, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
+import {
+  setDeliveryInfo,
+  setPaymentInfo,
+  setStageOfPayment,
+} from '@features/checkout/infrastructure/redux/checkout-slice';
 import { toast } from 'sonner';
 import { useAppSelector } from '@/store';
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const paymentFormRef = useRef<any>();
-  const deliveryFormRef = useRef<any>();
+  const paymentFormRef = useRef<HTMLFormElement>();
+  const deliveryFormRef = useRef<HTMLFormElement>();
   const dispatch = useDispatch();
   const paymentInfo = useAppSelector((state) => state.checkout.paymentInfo);
   const deliveryInfo = useAppSelector((state) => state.checkout.deliveryInfo);
@@ -32,7 +36,6 @@ export default function CheckoutPage() {
       dispatch(setDeliveryInfo(deliveryInfo));
       dispatch(setStageOfPayment(2));
     } else {
-      console.log({ paymentInfo, deliveryInfo });
       toast.error('Please complete all required fields!');
     }
   };

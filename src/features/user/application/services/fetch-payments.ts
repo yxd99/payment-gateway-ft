@@ -1,17 +1,10 @@
-import { useGetPaymentsQuery } from "@/features/user/infrastructure/redux/api-service";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useGetPaymentsQuery } from '@features/user/infrastructure/redux/api-service';
+import { Pagination } from '@features/user/application/ports/pagination';
 
-interface fetchPaymentsParams {
-  email: string;
-  page: number;
-  size: number;
-}
-
-export const fetchPayments = (params: fetchPaymentsParams) => {
-  const {
-    data,
-    ...rest
-  } = useGetPaymentsQuery(params);
+export const fetchPayments = (params: Pagination & { email: string }) => {
+  const { data, ...rest } = useGetPaymentsQuery(params);
 
   const payments = data ?? [];
   return { payments, ...rest };
-}
+};

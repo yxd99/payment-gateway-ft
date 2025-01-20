@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { deliveryInfoSchema } from '../schemas/delivery-info.schema';
+import { deliveryInfoSchema } from '@features/checkout/ui/schemas/delivery-info.schema';
 import { forwardRef, useImperativeHandle } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +23,7 @@ type DeliveryInfoFormProps = {
   initialValues?: {
     address: string;
     city: string;
-    state: string;
+    department: string;
     phone: string;
   };
 };
@@ -35,14 +35,10 @@ export const DeliveryInfoForm = forwardRef(
       defaultValues: {
         address: initialValues?.address || '',
         city: initialValues?.city || '',
-        state: initialValues?.state || '',
+        department: initialValues?.department || '',
         phone: initialValues?.phone || '',
       },
     });
-
-    const handleSubmit = async (values: z.infer<typeof deliveryInfoSchema>) => {
-      console.log(values);
-    };
 
     useImperativeHandle(ref, () => ({
       validate: async () => {
@@ -58,7 +54,7 @@ export const DeliveryInfoForm = forwardRef(
             <h1 className='text-2xl font-bold'>Delivery Info</h1>
           </CardHeader>
           <CardContent>
-            <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <form>
               <FormField
                 control={form.control}
                 name='phone'
@@ -123,10 +119,10 @@ export const DeliveryInfoForm = forwardRef(
                 />
                 <FormField
                   control={form.control}
-                  name='state'
+                  name='department'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>State</FormLabel>
+                      <FormLabel>Department</FormLabel>
                       <FormControl>
                         <Input
                           readOnly={!canEdit}
@@ -135,7 +131,7 @@ export const DeliveryInfoForm = forwardRef(
                         />
                       </FormControl>
                       <FormDescription>
-                        This is the state of the delivery location.
+                        This is the department of the delivery location.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

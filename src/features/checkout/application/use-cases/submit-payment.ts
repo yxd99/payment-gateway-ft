@@ -1,6 +1,6 @@
 import { PaymentRepository } from "@features/checkout/application/ports/payment-repository";
 import { Payment } from "@features/checkout/core/payment";
-import { PaymentApiForm } from "../ports/payment-api-form";
+import { PaymentApiForm } from "@features/checkout/application/ports/payment-api-form";
 
 export class SubmitPayment {
   constructor(private readonly repository: PaymentRepository) {}

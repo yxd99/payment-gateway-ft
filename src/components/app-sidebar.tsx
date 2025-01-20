@@ -12,7 +12,7 @@ import {
 import { DollarSign, LogOut, ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { logout } from "@/features/user/infrastructure/redux/user-slice";
+import { logout } from "@features/user/infrastructure/redux/user-slice";
 
 
 export function AppSidebar() {
@@ -31,7 +31,7 @@ export function AppSidebar() {
 
   const dispatch = useAppDispatch();
   const stageOfPayment = useAppSelector((state) => state.checkout.stageOfPayment);
-  console.log({ stageOfPayment });
+  
   if (stageOfPayment !== 0) {
     items.push({
       title: 'Checkout',

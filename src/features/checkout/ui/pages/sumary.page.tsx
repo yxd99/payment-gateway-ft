@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { DeliveryInfoForm } from '../components/delivery-info-form.component';
-import { PaymentInfoForm } from '../components/payment-info-form.component';
-import { ProductInfo } from '../components/product-info.component';
+import { DeliveryInfoForm } from '@features/checkout/ui/components/delivery-info-form.component';
+import { PaymentInfoForm } from '@features/checkout/ui/components/payment-info-form.component';
+import { ProductInfo } from '@features/checkout/ui/components/product-info.component';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { useNavigate } from 'react-router';
 import {
   useGetAcceptanceTokensQuery,
   useSubmitPaymentMutation,
-} from '../../infrastructure/redux/api-service';
+} from '@features/checkout/infrastructure/redux/api-service';
 import { toast } from 'sonner';
-import { clearStore, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
-import { clearProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
+import { clearStore, setStageOfPayment } from '@features/checkout/infrastructure/redux/checkout-slice';
+import { clearProductSelected } from '@features/products/infrastructure/redux/product-selected-slice';
 
 export default function SummaryPage() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function SummaryPage() {
         address: deliveryInfo.address,
         city: deliveryInfo.city,
         phone: deliveryInfo.phone,
-        state: deliveryInfo.state,
+        department: deliveryInfo.department, 
       },
     };
 
@@ -55,13 +55,12 @@ export default function SummaryPage() {
       toast.success('Payment sent!');
       navigate(`/products/${productInfo.id}`);
     } catch (error) {
-      console.log({ error });
       toast.error(`Something went wrong! ${error}`);
     }
   };
 
   return (
-    <div className='flex flex-col gap-2 m-2'>
+    <div className='flex flex-col gap-2 m-2 w-full'>
       <h1 className='text-2xl font-bold text-center border-b border-b-slate-200'>
         Summary
       </h1>

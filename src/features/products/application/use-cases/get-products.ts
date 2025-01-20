@@ -1,11 +1,6 @@
-import { Product } from "@features/products/core/product";
-import { ProductRepository } from "@features/products/application/ports/product-repository";
-import { Pagination } from "../ports/pagination";
+import { Pagination } from '@features/products/application/ports/pagination';
+import { fetchProducts } from '@features/products/application/services/fetch-products';
 
-export class GetProducts {
-  constructor(private readonly repository: ProductRepository) {}
-
-  async execute(pagination: Pagination): Promise<Product[]> {
-    return this.repository.getProducts(pagination);
-  }
-}
+export const getProducts = (pagination: Pagination) => {
+  return fetchProducts(pagination);
+};

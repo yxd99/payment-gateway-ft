@@ -1,32 +1,35 @@
-import { useEffect, useState } from "react";
-import { Product } from "@features/products/core/product";
-import { GetProducts } from "@features/products/application/use-cases/get-products";
-import { ProductHttpRepository } from "@features/products/infrastructure/product-http-repository";
-import { Pagination } from "@features/products/application/ports/pagination";
+import { useEffect, useState } from 'react';
+import { Product } from '@features/products/core/product';
+import { getProducts } from '@features/products/application/use-cases/get-products';
+import { Pagination } from '@features/products/application/ports/pagination';
 
-export const useProducts = ({ size, page }: Pagination) => {
+export const useProducts = (pagination: Pagination) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(false);
+  const {
+    products: productsQuery,
+    isFetching,
+    ...rest
+  } = getProducts(pagination);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const repository = new ProductHttpRepository();
-        const useCase = new GetProducts(repository);
-        const data = await useCase.execute({ size, page });
-        setProducts(data);
-      } catch (err: unknown) {
-        const error = err as Error;
-        setError(error.message || "Failed to fetch products");
-      } finally {
-        setLoading(false);
-      }
-    };
+    let totalProducts: Product[] = [];
 
-    fetchProducts();
-  }, [size, page]);
+    if (productsQuery.length > 0) {
+      totalProducts = [...products, ...productsQuery];
+      setHasMore(true);
+    } else {
+      totalProducts = [...products];
+      setHasMore(false);
+    }
 
-  return { products, loading, error };
+    setProducts([...new Set(totalProducts)]);
+  }, [isFetching, products, productsQuery]);
+
+  return {
+    hasMore,
+    products,
+    isFetching,
+    ...rest,
+  };
 };

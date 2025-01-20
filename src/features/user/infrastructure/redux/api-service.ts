@@ -1,12 +1,7 @@
 import { config } from '@/config/envs';
-import { Payment } from '@/features/user/core/payment';
+import { Payment } from '@features/user/core/payment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-export interface MyPaymentsFilter {
-  page: number;
-  size: number;
-  email: string;
-}
+import { MyPaymentsParams } from '@features/user/application/ports/my-payments-params';
 
 export const userApiService = createApi({
   reducerPath: 'userApi',
@@ -15,13 +10,16 @@ export const userApiService = createApi({
   }),
   endpoints: (builder) => ({
     getPayments: builder.query({
-      query: ({ email, page, size }: MyPaymentsFilter) => ({
+      query: ({ email, page, size }: MyPaymentsParams) => ({
         url: `/payments/my-payments/${email}?page=${page}&size=${size}`,
         method: 'GET',
       }),
-      transformResponse: (response: any): Payment[] => response.data,
+      transformResponse: (response: Record<string, unknown>): Payment[] => response.data as Payment[],
       merge: (current, next) => {
-        current.push(...next);
+        if (current) {
+          return [...current, ...next];
+        }
+        return [...next];
       },
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;

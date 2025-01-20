@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { setProductQuantity } from '@/features/products/infrastructure/redux/product-selected-slice';
+import { setProductQuantity } from '@features/products/infrastructure/redux/product-selected-slice';
 import { formatCurrency } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/store';
 

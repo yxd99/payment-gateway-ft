@@ -1,7 +1,6 @@
-import { useAppSelector } from '@/store';
-import { fetchPayments } from '../services/fetch-payments';
+import { fetchPayments } from '@features/user/application/services/fetch-payments';
+import { Pagination } from '@features/user/application/ports/pagination';
 
-export const getPayments = (page: number, size: number) => {
-  const email = useAppSelector((state) => state.user.email);
-  return fetchPayments({ email, page, size });
+export const getPayments = (props: Pagination & { email: string }) => {
+  return fetchPayments(props);
 };

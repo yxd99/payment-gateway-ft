@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router';
-import ProductCard from '../product-card.component';
+import { ProductCard } from '@features/products/ui/components/product-card.component';
 
 jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
