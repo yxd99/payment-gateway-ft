@@ -14,11 +14,15 @@ git clone https://github.com/your-username/payment-gateway-ft.git
 npm i
 ```
 
+## Configuration
+Create a `.env` file in the root directory of the project and add the following variables:
+```bash
+VITE_USER_NODE_ENV=development
+VITE_API_URL=http://localhost:3000
+```
+
 ## Run
 ```bash
 #In development mode:
-npm run start:dev
-
-#In production mode:
-npm run start:prod
+npm run dev
 ```
