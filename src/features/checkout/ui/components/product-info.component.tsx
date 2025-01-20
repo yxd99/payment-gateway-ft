@@ -22,13 +22,13 @@ export function ProductInfo({ canEdit = true }: ProductInfoProps) {
   };
 
   return (
-    <Card className=''>
+    <Card>
       <CardHeader className='flex justify-between'>
         <h1 className='text-2xl font-bold'>Product Info</h1>
       </CardHeader>
       <CardContent>
         <div className='grid grid-cols-1 gap-2'>
-          <div className='w-full h-[35rem]'>
+          <div className='w-full h-[25rem]'>
             <img
               src={product.imageUrl}
               alt={product.name}

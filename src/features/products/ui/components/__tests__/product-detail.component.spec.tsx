@@ -8,14 +8,6 @@ jest.mock('react-router', () => ({
   useNavigate: jest.fn(),
 }));
 
-jest.mock('@store/index', () => ({
-  useAppDispatch: jest.fn(),
-}));
-
-jest.mock('@features/products/ui/redux/product-selected-slice', () => ({
-  setProductSelected: jest.fn(),
-}));
-
 describe('ProductDetail', () => {
   const mockDispatch = jest.fn();
   const mockNavigate = jest.fn();

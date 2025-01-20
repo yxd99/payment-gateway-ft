@@ -21,14 +21,15 @@ export const useGetPayments = (pagination: Pagination) => {
     let totalPayments: Payment[] = [];
     if (paymentQuery.length > 0) {
       totalPayments = [...payments, ...paymentQuery];
-      setHasMore(true);
     } else {
       totalPayments = [...payments];
-      setHasMore(false);
     }
-
     setPayments([...new Set(totalPayments)]);
   }, [isFetching, paymentQuery, payments]);
+
+  useEffect(() => {
+    setHasMore(payments.length === pagination.size * pagination.page);
+  }, [payments]);
 
   return {
     hasMore,

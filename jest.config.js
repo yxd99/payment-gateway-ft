@@ -4,9 +4,9 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/setup-tests.ts'],
   rootDir: './',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '^@features/(.*)$': '<rootDir>/src/features/$1',
-    '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '@/(.*)$': '<rootDir>/src/$1',
+    '@features/(.*)$': '<rootDir>/src/features/$1',
+    '@store/(.*)$': '<rootDir>/src/store/$1',
   },
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',

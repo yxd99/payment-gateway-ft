@@ -54,7 +54,7 @@ export default function CheckoutPage() {
             <PaymentInfoForm initialValues={paymentInfo} ref={paymentFormRef} />
             <DeliveryInfoForm
               initialValues={deliveryInfo}
-              className='col-span-2'
+              className='md:col-span-2'
               ref={deliveryFormRef}
             />
           </div>
