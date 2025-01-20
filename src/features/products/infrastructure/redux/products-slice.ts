@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getProducts } from '../../application/use-cases/get-products';
+import { getProducts } from '@features/products/application/use-cases/get-products';
 import { productsApiService } from './api-service';
-import { Pagination } from '../../application/ports/pagination';
-import { ProductsSlice } from '../../application/ports/products-slice';
+import { Pagination } from '@features/products/application/ports/pagination';
+import { ProductsSlice } from '@features/products/application/ports/products-slice';
 
 const initialState: ProductsSlice = {
   isLoading: false,

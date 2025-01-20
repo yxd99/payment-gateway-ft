@@ -1,5 +1,5 @@
-import { ProductSelected } from '@/features/products/application/ports/product-selected-slice';
-import productSelectedReducer, { setProductSelected, clearProductSelected } from '../product-selected-slice';
+import { ProductSelected } from '@features/products/application/ports/product-selected-slice';
+import productSelectedReducer, { setProductSelected, clearProductSelected } from '@features/products/infrastructure/redux/product-selected-slice';
 
 describe('productSelectedSlice', () => {
   const initialState: ProductSelected = {

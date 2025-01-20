@@ -12,7 +12,7 @@ import {
 import { DollarSign, LogOut, ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { logout } from "@/features/user/infrastructure/redux/user-slice";
+import { logout } from "@features/user/infrastructure/redux/user-slice";
 
 
 export function AppSidebar() {

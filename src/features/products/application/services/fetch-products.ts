@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useGetProductsQuery } from "../../infrastructure/redux/api-service";
-import { Pagination } from "../ports/pagination";
+import { useGetProductsQuery } from "@features/products/infrastructure/redux/api-service";
+import { Pagination } from "@features/products/application/ports/pagination";
 
 export const fetchProducts = (pagination: Pagination) => {
   const {

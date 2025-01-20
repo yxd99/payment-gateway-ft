@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router';
-import ProductDetailPage from '../product-detail.page';
-import { getProductById } from '@/features/products/application/use-cases/get-product-by-id';
+import ProductDetailPage from '@features/products/ui/pages/product-detail.page';
+import { getProductById } from '@features/products/application/use-cases/get-product-by-id';
 
 jest.mock('@features/products/ui/hooks/use-product-by-id');
 

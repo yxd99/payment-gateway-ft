@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { deliveryInfoSchema } from '../schemas/delivery-info.schema';
+import { deliveryInfoSchema } from '@features/checkout/ui/schemas/delivery-info.schema';
 import { forwardRef, useImperativeHandle } from 'react';
 import { cn } from '@/lib/utils';
 

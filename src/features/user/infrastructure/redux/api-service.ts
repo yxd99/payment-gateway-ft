@@ -1,7 +1,7 @@
 import { config } from '@/config/envs';
-import { Payment } from '@/features/user/core/payment';
+import { Payment } from '@features/user/core/payment';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MyPaymentsParams } from '../../application/ports/my-payments-params';
+import { MyPaymentsParams } from '@features/user/application/ports/my-payments-params';
 
 export const userApiService = createApi({
   reducerPath: 'userApi',

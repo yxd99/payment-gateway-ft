@@ -1,7 +1,7 @@
 import { config } from '@/config/envs';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Product } from '../../core/product';
-import { Pagination } from '../../application/ports/pagination';
+import { Product } from '@features/products/core/product';
+import { Pagination } from '@features/products/application/ports/pagination';
 
 export const productsApiService = createApi({
   reducerPath: 'productsApi',

@@ -1,8 +1,8 @@
 import { useAppSelector } from "@/store";
-import { getPayments } from "../../application/use-cases/get-payments"
-import { Pagination } from "../../application/ports/pagination";
+import { getPayments } from "@features/user/application/use-cases/get-payments"
+import { Pagination } from "@features/user/application/ports/pagination";
 import { useEffect, useState } from "react";
-import { Payment } from "../../core/payment";
+import { Payment } from "@features/user/core/payment";
 
 export const useGetPayments = (pagination: Pagination) => {
   const [payments, setPayments] = useState<Payment[]>([]);

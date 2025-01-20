@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/table';
 import { formatCurrency } from '@/lib/utils';
 import { NavLink } from 'react-router';
-import { useGetPayments } from '../hooks/use-get-payments';
+import { useGetPayments } from '@features/user/ui/hooks/use-get-payments';
 
 export default function PaymentsPage() {
   const [page, setPage] = useState(1);

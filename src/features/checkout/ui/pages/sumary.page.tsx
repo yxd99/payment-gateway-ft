@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { DeliveryInfoForm } from '../components/delivery-info-form.component';
-import { PaymentInfoForm } from '../components/payment-info-form.component';
-import { ProductInfo } from '../components/product-info.component';
+import { DeliveryInfoForm } from '@features/checkout/ui/components/delivery-info-form.component';
+import { PaymentInfoForm } from '@features/checkout/ui/components/payment-info-form.component';
+import { ProductInfo } from '@features/checkout/ui/components/product-info.component';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { useNavigate } from 'react-router';
 import {
   useGetAcceptanceTokensQuery,
   useSubmitPaymentMutation,
-} from '../../infrastructure/redux/api-service';
+} from '@features/checkout/infrastructure/redux/api-service';
 import { toast } from 'sonner';
-import { clearStore, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
-import { clearProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
+import { clearStore, setStageOfPayment } from '@features/checkout/infrastructure/redux/checkout-slice';
+import { clearProductSelected } from '@features/products/infrastructure/redux/product-selected-slice';
 
 export default function SummaryPage() {
   const navigate = useNavigate();

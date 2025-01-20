@@ -1,6 +1,6 @@
 import { config } from '@/config/envs';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { PaymentAcceptanceApiTokenResponse } from '../../application/ports/payment-acceptance-api-token-response';
+import { PaymentAcceptanceApiTokenResponse } from '@features/checkout/application/ports/payment-acceptance-api-token-response';
 
 export const checkoutApiService = createApi({
   reducerPath: 'checkoutApi',

@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useNavigate } from 'react-router';
 import { useAppDispatch } from '@store/index';
-import { setProductSelected } from '@/features/products/infrastructure/redux/product-selected-slice';
-import { ProductDetail } from '../product-detail.component';
+import { setProductSelected } from '@features/products/infrastructure/redux/product-selected-slice';
+import { ProductDetail } from '@features/products/ui/components/product-detail.component';
 
 jest.mock('react-router', () => ({
   useNavigate: jest.fn(),

@@ -3,19 +3,19 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
 
-import productSelectedReducer from '@/features/products/infrastructure/redux/product-selected-slice';
+import productSelectedReducer from '@features/products/infrastructure/redux/product-selected-slice';
 import {
   checkoutMiddleware,
   checkoutReducer,
-} from '@/features/checkout/infrastructure/redux/checkout-slice';
+} from '@features/checkout/infrastructure/redux/checkout-slice';
 import { config } from '@/config/envs';
-import userReducer from '@/features/user/infrastructure/redux/user-slice';
+import userReducer from '@features/user/infrastructure/redux/user-slice';
 import paymentReducer, {
   paymentMiddleware,
-} from '@/features/user/infrastructure/redux/payments-slice';
+} from '@features/user/infrastructure/redux/payments-slice';
 import productsReducer, {
   productsMiddleware,
-} from '@/features/products/infrastructure/redux/products-slice';
+} from '@features/products/infrastructure/redux/products-slice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 const persistConfig = {

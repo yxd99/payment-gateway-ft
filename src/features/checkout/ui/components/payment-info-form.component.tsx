@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { paymentInfoSchema } from '../schemas/payment-info.schema';
+import { paymentInfoSchema } from '@features/checkout/ui/schemas/payment-info.schema';
 import DateInput from '@/components/input-date';
 import { forwardRef, useImperativeHandle, useState } from 'react';
 

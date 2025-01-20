@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/store";
-import UserForm from "../components/user-form.component";
+import UserForm from "@features/user/ui/components/user-form.component";
 
 export default function UserPage() {
   const userInfo = useAppSelector((state) => state.user);

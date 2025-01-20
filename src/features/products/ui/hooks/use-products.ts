@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Product } from '../../core/product';
-import { getProducts } from '../../application/use-cases/get-products';
-import { Pagination } from '../../application/ports/pagination';
+import { Product } from '@features/products/core/product';
+import { getProducts } from '@features/products/application/use-cases/get-products';
+import { Pagination } from '@features/products/application/ports/pagination';
 
 export const useProducts = (pagination: Pagination) => {
   const [products, setProducts] = useState<Product[]>([]);

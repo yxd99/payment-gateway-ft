@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { checkoutApiService } from './api-service';
-import { PaymentState, StageOfPayment } from '../../application/ports/payment-state';
-import { PaymentInfo } from '../../application/ports/payment-info';
-import { DeliveryInfo } from '../../application/ports/delivery-info';
+import { PaymentState, StageOfPayment } from '@features/checkout/application/ports/payment-state';
+import { PaymentInfo } from '@features/checkout/application/ports/payment-info';
+import { DeliveryInfo } from '@features/checkout/application/ports/delivery-info';
 
 
 const initialState: PaymentState = {

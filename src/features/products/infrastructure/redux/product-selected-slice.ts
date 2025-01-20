@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ProductSelected } from '../../application/ports/product-selected-slice';
+import { ProductSelected } from '@features/products/application/ports/product-selected-slice';
 
 const initialState: ProductSelected = {
   id: '',

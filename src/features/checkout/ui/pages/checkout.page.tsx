@@ -1,6 +1,6 @@
-import { PaymentInfoForm } from '../components/payment-info-form.component';
-import { DeliveryInfoForm } from '../components/delivery-info-form.component';
-import { ProductInfo } from '../components/product-info.component';
+import { PaymentInfoForm } from '@features/checkout/ui/components/payment-info-form.component';
+import { DeliveryInfoForm } from '@features/checkout/ui/components/delivery-info-form.component';
+import { ProductInfo } from '@features/checkout/ui/components/product-info.component';
 import {
   Card,
   CardContent,
@@ -11,7 +11,11 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDeliveryInfo, setPaymentInfo, setStageOfPayment } from '../../infrastructure/redux/checkout-slice';
+import {
+  setDeliveryInfo,
+  setPaymentInfo,
+  setStageOfPayment,
+} from '@features/checkout/infrastructure/redux/checkout-slice';
 import { toast } from 'sonner';
 import { useAppSelector } from '@/store';
 

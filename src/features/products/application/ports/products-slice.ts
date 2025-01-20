@@ -1,4 +1,4 @@
-import { Product } from "../../core/product";
+import { Product } from "@features/products/core/product";
 
 export interface ProductsSlice {
   isLoading: boolean;

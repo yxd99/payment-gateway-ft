@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router';
 import { ProductDetail } from '@features/products/ui/components/product-detail.component';
 import { MoveLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getProductById } from '../../application/use-cases/get-product-by-id';
+import { getProductById } from '@features/products/application/use-cases/get-product-by-id';
 import Loading from '@/components/loading';
 
 export default function ProductDetailPage() {
